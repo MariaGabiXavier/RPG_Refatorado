@@ -1,10 +1,10 @@
 public class  Personagem()
 {
-    char nome;
-    short pontosVida;
-    short ataque;
-    short defesa;
-    short nivel;
+    private char nome;
+    private short pontosVida;
+    private short ataque;
+    private short defesa;
+    private short nivel;
     Inventario inventario;
     public Personagem(char nome, short pontosVida, short ataque ,short defesa, short nivel, Inventario inventario){
         nome = this.nome;
@@ -54,7 +54,17 @@ public class Inimigo extends Personagem(){
         defesa = this.defesa;
         nivel = this.nivel;
         inventario = this.inventario;
-} 
+}
+
+public class Item(){
+    private char nome;
+    private char descricao;
+    private char efeito;
+    private short quantidade;
+    public Item(private char nome, private char descricao, private char efeito, private short quantidade){
+
+    }
+}
 public class Inventario(){
     
 }
