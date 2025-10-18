@@ -1,14 +1,73 @@
 import java.util.*;
 
-class Inventario implements Cloneable {
+public class Inventario implements Cloneable, Comparable<Inventario> {
     private ArrayList<Item> itens = new ArrayList<>();
 
     public Inventario() {}
 
-    public Inventario(Inventario outro) {
-        for (Item i : outro.itens) {
-            this.itens.add(i.clone());
+    public Inventario(Inventario modelo) throws Exception {
+        if (modelo == null)
+            throw new Exception("Modelo ausente");
+
+        for (Item i : modelo.itens)
+            this.itens.add((Item)i.clone());
+    }
+
+    @Override
+    public Object clone() {
+        Inventario retorno = null;
+        try {
+            retorno = new Inventario(this);
+        } catch (Exception erro) {}
+        return retorno;
+    }
+
+    @Override
+    public String toString() {
+        if (itens.isEmpty())
+            return "Inventário vazio.";
+        StringBuilder sb = new StringBuilder("=== Inventário ===\n");
+        Collections.sort(itens);
+        for (Item i : itens)
+            sb.append(i.toString()).append("\n");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != this.getClass()) return false;
+        Inventario inv = (Inventario)obj;
+        if (this.itens.size() != inv.itens.size()) return false;
+        for (int i = 0; i < this.itens.size(); i++) {
+            if (!this.itens.get(i).equals(inv.itens.get(i)))
+                return false;
         }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int retorno = 1;
+        for (int i = 0; i < this.itens.size(); i++) {
+            if (this.itens.get(i) != null)
+                retorno = retorno * 7 + this.itens.get(i).hashCode();
+        }
+        if (retorno < 0) retorno = -retorno;
+        return retorno;
+    }
+
+    @Override
+    public int compareTo(Inventario inv) {
+        if (this == inv) return 0;
+        if (this.itens.size() < inv.itens.size()) return -666;
+        if (this.itens.size() > inv.itens.size()) return 666;
+        for (int i = 0; i < this.itens.size(); i++) {
+            int comp = this.itens.get(i).compareTo(inv.itens.get(i));
+            if (comp != 0) return comp;
+        }
+        return 0;
     }
 
     public void adicionarItem(Item item) {
@@ -18,7 +77,7 @@ class Inventario implements Cloneable {
                 return;
             }
         }
-        itens.add(item.clone());
+        itens.add((Item)item.clone());
     }
 
     public void removerItem(String nomeItem, Personagem p) {
@@ -27,7 +86,8 @@ class Inventario implements Cloneable {
             Item i = it.next();
             if (i.getNome().equalsIgnoreCase(nomeItem)) {
                 i.usar(p);
-                if (i.getQuantidade() <= 0) it.remove();
+                if (i.getQuantidade() <= 0)
+                    it.remove();
                 return;
             }
         }
@@ -35,17 +95,7 @@ class Inventario implements Cloneable {
     }
 
     public void listarItens() {
-        Collections.sort(itens);
-        if (itens.isEmpty()) {
-            System.out.println("Inventário vazio.");
-            return;
-        }
-        System.out.println("=== Inventário ===");
-        for (Item i : itens) System.out.println(i);
-    }
-
-    public Inventario clone() {
-        return new Inventario(this);
+        System.out.println(this.toString());
     }
 
     public boolean estaVazio() {

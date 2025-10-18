@@ -1,6 +1,4 @@
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class ShadowhuntersRPG {
     public static void main(String[] args) {
@@ -15,13 +13,20 @@ public class ShadowhuntersRPG {
         System.out.println("4 - Alec Lightwood (Arco: precisão/crítico)");
 
         int escolha = lerInt(sc, 1, 4);
+        sc.nextLine(); // limpa o ENTER que ficou após nextInt
+
         Personagem jogador;
 
-        switch (escolha) {
-            case 1: jogador = new Clary(); break;
-            case 2: jogador = new Jace(); break;
-            case 3: jogador = new Isabelle(); break;
-            default: jogador = new Alec(); break;
+        try {
+            switch (escolha) {
+                case 1: jogador = new Clary(); break;
+                case 2: jogador = new Jace(); break;
+                case 3: jogador = new Isabelle(); break;
+                default: jogador = new Alec(); break;
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao criar personagem.");
+            return;
         }
 
         jogador.inventario.adicionarItem(new Item("Poção de Cura", "Restaura 30 HP", "cura", 2));
@@ -58,12 +63,13 @@ public class ShadowhuntersRPG {
                 opt = sc.nextInt();
                 if (opt < min || opt > max) {
                     System.out.println("Escolha entre " + min + " e " + max + ":");
+                    sc.nextLine(); // limpa o buffer após número fora do intervalo
                     continue;
                 }
                 break;
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida, digite um número:");
-                sc.next();
+                sc.nextLine(); // limpa o buffer após erro de tipo
             }
         }
         return opt;
