@@ -28,8 +28,12 @@ public class Inventario implements Cloneable, Comparable<Inventario> {
             return "Inventário vazio.";
         StringBuilder sb = new StringBuilder("=== Inventário ===\n");
         Collections.sort(itens);
-        for (Item i : itens)
-            sb.append(i.toString()).append("\n");
+        for (int i = 0; i < itens.size(); i++) {
+            sb.append((i + 1))
+              .append(" - ")
+              .append(itens.get(i).toString())
+              .append("\n");
+        }
         return sb.toString();
     }
 
@@ -100,5 +104,43 @@ public class Inventario implements Cloneable, Comparable<Inventario> {
 
     public boolean estaVazio() {
         return itens.isEmpty();
+    }
+
+    // ✅ NOVO MÉTODO — usar item por número
+    public void usarItemPorNumero(Scanner sc, Personagem p) {
+        if (itens.isEmpty()) {
+            System.out.println("Você não tem itens no inventário.");
+            return;
+        }
+
+        System.out.println(this.toString());
+        System.out.print("Digite o número do item que deseja usar (ou 0 para cancelar): ");
+
+        int escolha = -1;
+        while (true) {
+            try {
+                escolha = sc.nextInt();
+                sc.nextLine(); // limpa buffer
+                if (escolha == 0) {
+                    System.out.println("Ação cancelada.");
+                    return;
+                }
+                if (escolha < 1 || escolha > itens.size()) {
+                    System.out.print("Número inválido. Digite um número entre 1 e " + itens.size() + ": ");
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.print("Entrada inválida! Digite o número do item: ");
+                sc.nextLine(); // limpa buffer
+            }
+        }
+
+        Item escolhido = itens.get(escolha - 1);
+        escolhido.usar(p);
+
+        if (escolhido.getQuantidade() <= 0) {
+            itens.remove(escolhido);
+        }
     }
 }

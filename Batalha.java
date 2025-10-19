@@ -27,12 +27,7 @@ class Batalha {
                 System.out.println("Você causou " + danoJogador + " de dano!");
                 System.out.println("O inimigo causou " + danoInimigo + " de dano!");
             } else if (acao == 2) {
-                System.out.println("Inventário:");
-                jogador.inventario.listarItens();
-                System.out.println("Digite o nome do item para usar (ou '0' para cancelar):");
-                sc.nextLine();
-                String nomeItem = sc.nextLine();
-                if (!nomeItem.equals("0")) jogador.inventario.removerItem(nomeItem, jogador);
+                jogador.inventario.usarItemPorNumero(sc, jogador);
             } else {
                 jogador.habilidadeEspecial(dado, inimigo);
             }
