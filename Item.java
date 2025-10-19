@@ -1,4 +1,3 @@
-import java.util.*;
 
 public class Item implements Comparable<Item>, Cloneable {
     private String nome;
@@ -92,18 +91,18 @@ public class Item implements Comparable<Item>, Cloneable {
         switch (efeito.toLowerCase()) {
             case "cura":
                 p.pontosVida += 30;
-                System.out.println(p.nome + " usou " + nome + " e recuperou 30 HP!");
+                System.out.println("\n" + p.nome + " usou " + nome + " e recuperou 30 HP!");
                 break;
             case "força":
                 p.ataque += 5;
-                System.out.println(p.nome + " usou " + nome + " e ganhou +5 de ataque!");
+                System.out.println("\n" + p.nome + " usou " + nome + " e ganhou +5 de ataque!");
                 break;
             case "cura_grande":
                 p.pontosVida += 60;
-                System.out.println(p.nome + " usou " + nome + " e recuperou 60 HP!");
+                System.out.println("\n" + p.nome + " usou " + nome + " e recuperou 60 HP!");
                 break;
             default:
-                System.out.println(p.nome + " usou " + nome + ": " + efeito);
+                System.out.println("\n" + p.nome + " usou " + nome + ": " + efeito);
         }
     }
 

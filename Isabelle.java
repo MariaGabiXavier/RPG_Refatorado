@@ -73,6 +73,6 @@ public class Isabelle extends Personagem implements Comparable<Isabelle> {
     @Override
     public void habilidadeEspecial(Random dado, Inimigo inimigo) {
         ataque += 7;
-        System.out.println(nome + " usa o Chicote Serafim: +7 de ataque (golpes rápidos)!");
+        System.out.println("\n" + nome + " usa o Chicote Serafim: +7 de ataque (golpes rápidos)!");
     }
 }

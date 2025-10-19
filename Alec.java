@@ -77,9 +77,9 @@ public class Alec extends Personagem implements Comparable<Alec> {
             int dano = (this.ataque * 2) - inimigo.defesa;
             if (dano > 0)
                 inimigo.receberDano(dano);
-            System.out.println(this.nome + " atira com precisão: CRÍTICO! Causou " + Math.max(dano, 0) + " de dano!");
+            System.out.println("\n" + this.nome + " atira com precisão em seu inimigo! Causou " + Math.max(dano, 0) + " de dano!");
         } else {
-            System.out.println(this.nome + " tentou um tiro preciso, mas errou o crítico.");
+            System.out.println("\n"  + this.nome + " tentou um tiro preciso, mas errou o alvo.");
         }
     }
 }

@@ -26,7 +26,7 @@ public class Inventario implements Cloneable, Comparable<Inventario> {
     public String toString() {
         if (itens.isEmpty())
             return "Inventário vazio.";
-        StringBuilder sb = new StringBuilder("=== Inventário ===\n");
+        StringBuilder sb = new StringBuilder("\n=== Inventário ===\n");
         Collections.sort(itens);
         for (int i = 0; i < itens.size(); i++) {
             sb.append((i + 1))
@@ -106,21 +106,20 @@ public class Inventario implements Cloneable, Comparable<Inventario> {
         return itens.isEmpty();
     }
 
-    // ✅ NOVO MÉTODO — usar item por número
     public void usarItemPorNumero(Scanner sc, Personagem p) {
         if (itens.isEmpty()) {
             System.out.println("Você não tem itens no inventário.");
             return;
         }
 
-        System.out.println(this.toString());
+        System.out.print(this.toString());
         System.out.print("Digite o número do item que deseja usar (ou 0 para cancelar): ");
 
         int escolha = -1;
         while (true) {
             try {
                 escolha = sc.nextInt();
-                sc.nextLine(); // limpa buffer
+                sc.nextLine(); 
                 if (escolha == 0) {
                     System.out.println("Ação cancelada.");
                     return;
@@ -132,7 +131,7 @@ public class Inventario implements Cloneable, Comparable<Inventario> {
                 break;
             } catch (InputMismatchException e) {
                 System.out.print("Entrada inválida! Digite o número do item: ");
-                sc.nextLine(); // limpa buffer
+                sc.nextLine(); 
             }
         }
 

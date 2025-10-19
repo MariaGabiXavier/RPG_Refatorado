@@ -75,6 +75,6 @@ public class Jace extends Personagem implements Comparable<Jace> {
         int rolagem = dado.nextInt(6) + 1;
         int dano = ataque + 6 + rolagem - inimigo.defesa;
         if (dano > 0) inimigo.receberDano(dano);
-        System.out.println(nome + " usa a Espada Mortal: causa " + Math.max(dano, 0) + " de dano direto!");
+        System.out.println("\n" + nome + " usa sua Espada Mortal: causa " + Math.max(dano, 0) + " de dano direto!");
     }
 }

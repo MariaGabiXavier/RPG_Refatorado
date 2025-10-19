@@ -8,7 +8,6 @@ public abstract class Personagem implements Cloneable {
     int nivel;
     Inventario inventario;
 
-    // Construtor padrão necessário para evitar erro nas subclasses
     public Personagem() {
         this.nome = "";
         this.pontosVida = 0;
