@@ -8,9 +8,9 @@ class Batalha {
             System.out.println("\n" + negrito + "--- Novo Turno ---" + reset);
             System.out.println(jogador);
             System.out.println(inimigo);
-            System.out.println("Ações: 1-Atacar 2-Usar item 3-Habilidade especial");
+            System.out.println("Ações: 1-Atacar 2-Usar item 3-Habilidade especial 4-Fugir");
             System.out.print("Escolha: ");           
-            int acao = lerInt(sc, 1, 3);
+            int acao = lerInt(sc, 1, 4);
 
             if (acao == 1) {
                 int rolagemJogador = dado.nextInt(6) + 1;
@@ -29,8 +29,25 @@ class Batalha {
                 System.out.println("O inimigo causou " + danoInimigo + " de dano!");
             } else if (acao == 2) {
                 jogador.inventario.usarItemPorNumero(sc, jogador);
-            } else {
+            } else if (acao == 3) {
                 jogador.habilidadeEspecial(dado, inimigo);
+            } else if (acao == 4) {
+                if (dado.nextInt(100) < 50) { 
+                    System.out.println(negrito + "\nVocê aproveita uma distração e consegue escapar das garras de " + inimigo.nome + "!" + reset);
+                    return; 
+                } else {
+                    System.out.println("\nO " + inimigo.nome + " é muito rápido! Ele bloqueia sua rota de fuga e te ataca!");
+                    
+                    int rolagemInimigo = dado.nextInt(6) + 1;
+                    int danoInimigo = inimigo.ataque + rolagemInimigo - jogador.defesa;
+                    
+                    if (danoInimigo > 0) jogador.receberDano(danoInimigo);
+                    else danoInimigo = 0;
+                    
+                    System.out.println("Ele te acerta e causa " + danoInimigo + " de dano extra!");
+
+                    if (!jogador.estaVivo()) break;
+                }
             }
 
             if (inimigo.estaVivo() && dado.nextInt(100) < 15) {
@@ -39,9 +56,8 @@ class Batalha {
         }
 
         if (jogador.estaVivo() && !inimigo.estaVivo()) {
-    System.out.println("\n" + negrito + "Você derrotou " + inimigo.nome + "!" + reset);
+    System.out.println("\n" + negrito + "Você derrotou o " + inimigo.nome + "!" + reset);
 
-    // Se o inimigo for Valentine (último chefe)
     if (inimigo.nome.equalsIgnoreCase("Valentine Morgenstern")) {
         System.out.println(negrito + "Obrigado por nos ajudar a salvar o mundo das sombras!\n" + reset);
         System.exit(0); 

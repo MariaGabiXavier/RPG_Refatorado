@@ -4,8 +4,8 @@ public class ShadowhuntersRPG {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Random dado = new Random();
-        String negrito = "\u001B[1m"; // Código ANSI para negrito
-        String reset = "\u001B[0m"; // Volta o texto ao normal
+        String negrito = "\u001B[1m"; 
+        String reset = "\u001B[0m"; 
 
         System.out.println("\n===" + negrito + " SHADOWHUNTERS: O PORTAL DE VALENTINE" + reset + " ===\n");
         System.out.println("1 -" + negrito + " Clary Fairchild" + reset + " (Runas: cura/força)");
@@ -15,7 +15,7 @@ public class ShadowhuntersRPG {
         System.out.print("Escolha seu Shadowhunter:");
 
         int escolha = lerInt(sc, 1, 4);
-        sc.nextLine(); // limpa o ENTER que ficou após nextInt
+        sc.nextLine(); 
 
         Personagem jogador;
 
@@ -35,7 +35,7 @@ public class ShadowhuntersRPG {
         jogador.inventario.adicionarItem(new Item("Tônico de Força", "Aumenta ataque temporariamente", "força", 1));
 
         System.out.println("\nOlá " + jogador.nome + "! Sua missão de hoje é impedir que Valentine use o cálice para abrir o Portal e criar um exército mortal.");
-        System.out.println("Caminhe com cuidado! Armadilhas e inimigos te aguardam. Valentine é o chefe final.");
+        System.out.println("Caminhe com cuidado! Armadilhas e inimigos te aguardam.");
 
         Capitulos.capitulo1(jogador, dado, sc, negrito, reset);
         if (!jogador.estaVivo()) {
@@ -51,11 +51,17 @@ public class ShadowhuntersRPG {
 
         Capitulos.capitulo3(jogador, dado, sc, negrito, reset);
         if (!jogador.estaVivo()) {
-            System.out.println("\nFoi uma luta difícil... você será lembrado.");
+            System.out.println("\nFoi uma luta difícil no Enigma. Você será lembrado.");
             return;
         }
 
-        Capitulos.capitulo4Valentine(jogador, dado, sc, negrito, reset);
+        Capitulos.capitulo4(jogador, dado, sc, negrito, reset);
+        if (!jogador.estaVivo()) {
+            System.out.println("\nVocê falhou na infiltração final. Valentine venceu. Tente novamente!");
+            return;
+        }
+
+        Capitulos.capitulo5(jogador, dado, sc, negrito, reset);
     }
 
     private static int lerInt(Scanner sc, int min, int max) {
@@ -65,13 +71,13 @@ public class ShadowhuntersRPG {
                 opt = sc.nextInt();
                 if (opt < min || opt > max) {
                     System.out.println("Escolha entre " + min + " e " + max + ":");
-                    sc.nextLine(); // limpa o buffer após número fora do intervalo
+                    sc.nextLine(); 
                     continue;
                 }
                 break;
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida, digite um número:");
-                sc.nextLine(); // limpa o buffer após erro de tipo
+                sc.nextLine(); 
             }
         }
         return opt;

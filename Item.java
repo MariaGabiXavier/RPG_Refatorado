@@ -101,11 +101,14 @@ public class Item implements Comparable<Item>, Cloneable {
                 p.pontosVida += 60;
                 System.out.println("\n" + p.nome + " usou " + nome + " e recuperou 60 HP!");
                 break;
+            case "defesa":
+                p.defesa += 5;
+                System.out.println("\n" + p.nome + " usou " + nome + " e ganhou +5 de defesa!");
+                break;
             default:
                 System.out.println("\n" + p.nome + " usou " + nome + ": " + efeito);
         }
     }
-
     public void adicionar(int qtd) {
         quantidade += qtd;
     }
