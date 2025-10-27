@@ -36,18 +36,16 @@ public class Item implements Comparable<Item>, Cloneable {
         return this.nome + " (" + this.quantidade + ") - " + this.descricao;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null) return false;
-        if (obj.getClass() != this.getClass()) return false;
-        Item i = (Item) obj;
-        if (!this.nome.equalsIgnoreCase(i.nome)) return false;
-        if (!this.descricao.equalsIgnoreCase(i.descricao)) return false;
-        if (!this.efeito.equalsIgnoreCase(i.efeito)) return false;
-        if (this.quantidade != i.quantidade) return false;
-        return true;
-    }
+@Override
+public boolean equals(Object obj) {
+    if (obj == this) return true;
+    if (obj == null || obj.getClass() != this.getClass()) return false;
+    Item i = (Item) obj;
+    return this.nome.equalsIgnoreCase(i.nome)
+        && this.descricao.equalsIgnoreCase(i.descricao)
+        && this.efeito.equalsIgnoreCase(i.efeito);
+}
+
 
     @Override
     public int hashCode() {

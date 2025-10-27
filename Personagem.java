@@ -91,4 +91,10 @@ public abstract class Personagem implements Cloneable {
         if (pontosVida < 0)
             pontosVida = 0;
     }
+    public void absorverInventario(Inimigo inimigo) {
+    for (Item item : inimigo.inventario.getItens()) {
+        this.inventario.adicionarItem(item);
+    }
+}
+
 }

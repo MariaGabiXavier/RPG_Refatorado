@@ -71,10 +71,21 @@ public class Jace extends Personagem implements Comparable<Jace> {
     }
 
     @Override
-    public void habilidadeEspecial(Random dado, Inimigo inimigo) {
-        int rolagem = dado.nextInt(6) + 1;
+public void habilidadeEspecial(Random dado, Inimigo inimigo) {
+    int rolagem = dado.nextInt(6) + 1;
+    System.out.println("\n" + nome + " tenta usar sua Espada Mortal... (rolagem: " + rolagem + ")");
+
+    if (rolagem >= 4) {
         int dano = ataque + 6 + rolagem - inimigo.defesa;
-        if (dano > 0) inimigo.receberDano(dano);
-        System.out.println("\n" + nome + " usa sua Espada Mortal: causa " + Math.max(dano, 0) + " de dano direto!");
+        if (dano > 0) {
+            inimigo.receberDano(dano);
+            System.out.println(nome + " acerta com precisão! Causa " + dano + " de dano direto!");
+        } else {
+            System.out.println(nome + " acerta, mas o inimigo resiste! Sem dano efetivo.");
+        }
+    } else {
+        System.out.println("O golpe falha! " + inimigo.nome + " se esquiva da Espada Mortal.");
     }
+}
+
 }

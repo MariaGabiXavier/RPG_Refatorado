@@ -70,9 +70,17 @@ public class Isabelle extends Personagem implements Comparable<Isabelle> {
         return this.nome.compareToIgnoreCase(i.nome);
     }
 
-    @Override
-    public void habilidadeEspecial(Random dado, Inimigo inimigo) {
+   @Override
+public void habilidadeEspecial(Random dado, Inimigo inimigo) {
+    int rolagem = dado.nextInt(6) + 1; // rola um dado de 1 a 6
+    System.out.println("\n" + nome + " tenta usar o Chicote Serafim... (rolagem: " + rolagem + ")");
+
+    if (rolagem >= 4) {
         ataque += 7;
-        System.out.println("\n" + nome + " usa o Chicote Serafim: +7 de ataque (golpes rápidos)!");
+        System.out.println(nome + " acerta com golpes rápidos! +7 de ataque temporário!");
+    } else {
+        System.out.println("Mas o inimigo desvia com agilidade! A habilidade falha.");
     }
+}
+
 }

@@ -70,14 +70,20 @@ public class Clary extends Personagem implements Comparable<Clary> {
         return this.nome.compareToIgnoreCase(c.nome);
     }
 
-    @Override
-    public void habilidadeEspecial(Random dado, Inimigo inimigo) {
-        if (dado.nextBoolean()) {
-            pontosVida += 30;
-            System.out.println("\n" + nome + " usa a Runa de Criação e cura 30 HP!");
-        } else {
-            ataque += 8;
-            System.out.println("\n" + nome + " ativa uma runa poderosa e ganha +8 de ataque!");
-        }
+@Override
+public void habilidadeEspecial(Random dado, Inimigo inimigo) {
+    int rolagem = dado.nextInt(6) + 1;
+    System.out.println("\n" + nome + " invoca uma Runa Mística... (rolagem: " + rolagem + ")");
+
+    if (rolagem <= 2) {
+        System.out.println("A runa falha em brilhar. Nada acontece.");
+    } else if (rolagem <= 4) {
+        pontosVida += 30;
+        System.out.println(nome + " ativa a Runa de Criação e recupera 30 HP!");
+    } else {
+        ataque += 8;
+        System.out.println(nome + " ativa a Runa de Fúria e ganha +8 de ataque!");
     }
+}
+
 }

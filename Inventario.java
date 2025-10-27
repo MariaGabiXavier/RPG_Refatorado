@@ -97,6 +97,9 @@ public class Inventario implements Cloneable, Comparable<Inventario> {
         }
         System.out.println("Item '" + nomeItem + "' não encontrado no inventário.");
     }
+    public ArrayList<Item> getItens() {
+        return new ArrayList<>(this.itens); 
+    }
 
     public void listarItens() {
         System.out.println(this.toString());

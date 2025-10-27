@@ -39,7 +39,7 @@ class Capitulos {
             if (subEscolha == 1) {
                 if (dado.nextInt(100) < 65) { 
                     System.out.println("\nO baú se abre! Você encontra uma Poção de Cura Superior e Pontos de Vida extra!");
-                    jogador.inventario.adicionarItem(new Item("Poção Superior", "Restaura 50 HP", "cura_grande", 1));
+                    jogador.inventario.adicionarItem(new Item("Poção Superior", "Restaura 60 HP", "cura_grande", 1));
                     System.out.println("Ganhou 15 HP."); 
                     jogador.pontosVida += 15; 
                 } else {

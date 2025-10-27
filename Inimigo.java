@@ -1,14 +1,27 @@
 import java.util.*;
 
 public class Inimigo extends Personagem implements Comparable<Inimigo> {
-    public Inimigo(String nome, int pontosVida, int ataque, int defesa, int nivel) {
-        this.nome = nome;
-        this.pontosVida = pontosVida;
-        this.ataque = ataque;
-        this.defesa = defesa;
-        this.nivel = nivel;
-        this.inventario = new Inventario();
+public Inimigo(String nome, int pontosVida, int ataque, int defesa, int nivel) {
+    this.nome = nome;
+    this.pontosVida = pontosVida;
+    this.ataque = ataque;
+    this.defesa = defesa;
+    this.nivel = nivel;
+    this.inventario = new Inventario();
+
+    // 🎒 Adiciona itens ao inventário do inimigo
+    if (nivel >= 1) {
+        inventario.adicionarItem(new Item("Poção de Cura", "Restaura 30 HP", "cura", 2));
     }
+    if (nivel >= 2) {
+        inventario.adicionarItem(new Item("Poção de Força", "Aumenta ataque em +5", "força", 1));
+    }
+    if (nome.equalsIgnoreCase("Valentine Morgenstern")) {
+        inventario.adicionarItem(new Item("Poção Suprema", "Recupera 60 HP", "cura_grande", 1));
+        inventario.adicionarItem(new Item("Escudo Sombrio", "Aumenta defesa em +5", "defesa", 1));
+    }
+}
+
 
     public Inimigo(Inimigo modelo) throws Exception {
         if (modelo == null)
