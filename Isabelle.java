@@ -72,8 +72,8 @@ public class Isabelle extends Personagem implements Comparable<Isabelle> {
 
    @Override
 public void habilidadeEspecial(Random dado, Inimigo inimigo) {
-    int rolagem = dado.nextInt(6) + 1; // rola um dado de 1 a 6
-    System.out.println("\n" + nome + " tenta usar o Chicote Serafim... (rolagem: " + rolagem + ")");
+    int rolagem = dado.nextInt(6) + 1;
+    System.out.println("\n" + nome + " tenta usar o Chicote Serafim...");
 
     if (rolagem >= 4) {
         ataque += 7;

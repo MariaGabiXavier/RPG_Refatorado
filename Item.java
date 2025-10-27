@@ -1,4 +1,3 @@
-
 public class Item implements Comparable<Item>, Cloneable {
     private String nome;
     private String descricao;
@@ -103,8 +102,16 @@ public boolean equals(Object obj) {
                 p.defesa += 5;
                 System.out.println("\n" + p.nome + " usou " + nome + " e ganhou +5 de defesa!");
                 break;
+            case "elixir_força":
+                p.ataque += 3;
+                System.out.println("\n" + p.nome + " usou " + nome + " e ganhou +3 de ataque!");
+                break;
+            case "bonus_defesa":
+                p.defesa += 1;
+                System.out.println("\n" + p.nome + " usou " + nome + " e ganhou +1 de defesa!");
+                break;
             default:
-                System.out.println("\n" + p.nome + " usou " + nome + ": " + efeito);
+            System.out.println("\n" + p.nome + " usou " + nome + ": " + efeito);
         }
     }
     public void adicionar(int qtd) {

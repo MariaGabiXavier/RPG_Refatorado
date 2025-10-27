@@ -73,7 +73,7 @@ public class Clary extends Personagem implements Comparable<Clary> {
 @Override
 public void habilidadeEspecial(Random dado, Inimigo inimigo) {
     int rolagem = dado.nextInt(6) + 1;
-    System.out.println("\n" + nome + " invoca uma Runa Mística... (rolagem: " + rolagem + ")");
+    System.out.println("\n" + nome + " invoca uma Runa Mística...");
 
     if (rolagem <= 2) {
         System.out.println("A runa falha em brilhar. Nada acontece.");
@@ -85,5 +85,4 @@ public void habilidadeEspecial(Random dado, Inimigo inimigo) {
         System.out.println(nome + " ativa a Runa de Fúria e ganha +8 de ataque!");
     }
 }
-
 }

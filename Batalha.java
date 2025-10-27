@@ -61,10 +61,8 @@ class Batalha {
         if (jogador.estaVivo() && !inimigo.estaVivo()) {
             System.out.println("\n" + negrito + "Você derrotou o " + inimigo.nome + "!" + reset);
 
-            // ✅ Clona os itens do inimigo
             jogador.absorverInventario(inimigo);
 
-            // ✅ Exibe os itens coletados
             if (!inimigo.inventario.estaVazio()) {
                 System.out.println("Você coletou os seguintes itens do inimigo:");
                 inimigo.inventario.listarItens();

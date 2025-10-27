@@ -73,7 +73,7 @@ public class Jace extends Personagem implements Comparable<Jace> {
     @Override
 public void habilidadeEspecial(Random dado, Inimigo inimigo) {
     int rolagem = dado.nextInt(6) + 1;
-    System.out.println("\n" + nome + " tenta usar sua Espada Mortal... (rolagem: " + rolagem + ")");
+    System.out.println("\n" + nome + " tenta usar sua Espada Mortal...");
 
     if (rolagem >= 4) {
         int dano = ataque + 6 + rolagem - inimigo.defesa;

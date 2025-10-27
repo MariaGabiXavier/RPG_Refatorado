@@ -55,9 +55,7 @@ class Capitulos {
             
             if (jogador.estaVivo()) {
                 System.out.println("Ao derrotar o demônio, você encontra um Amuleto de Sorte!");
-                jogador.inventario.adicionarItem(new Item("Amuleto de Sorte", "Defesa aumntada", "bonus_defesa", 1));
-                jogador.defesa += 1;
-                System.out.println("Sua Defesa aumentou para: " + jogador.defesa);
+                jogador.inventario.adicionarItem(new Item("Amuleto de Sorte", "Defesa aumentada", "bonus_defesa", 1));
             }
         }
     }
@@ -91,8 +89,7 @@ class Capitulos {
             Batalha.batalhar(jogador, new Inimigo("Demônio de Fogo", 85, 17, 9, 1), dado, sc, negrito, reset);
             
             if (jogador.estaVivo()) {
-                System.out.println("Você rompe a porta. Dentro, você encontra uma Runa de Força.");
-                jogador.inventario.adicionarItem(new Item("Runa de Força", "Aumento de ataque", "força", 1));
+                System.out.println("Após a luta, você consegue romper a porta e segue em busca de mais pistas que te levem a Valentine.");
             }
         }
     }
@@ -147,8 +144,6 @@ class Capitulos {
                 Batalha.batalhar(jogador, new Inimigo("Demônio Maior", 150, 18, 9, 3), dado, sc, negrito, reset);
             } else {
                 System.out.println("\nVocê escolhe a Runa do Medo. É a chave! Todas as armadilhas são desativadas e o caminho se abre.");
-                System.out.println("Você encontra um Elixir da Força no final do corredor e passa sem lutar!");
-                jogador.inventario.adicionarItem(new Item("Elixir da Força", "Aumenta o ataque", "força", 1));
             }
         }
     }
