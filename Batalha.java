@@ -32,25 +32,25 @@ class Batalha {
             } else if (acao == 3) {
                 jogador.habilidadeEspecial(dado, inimigo);
             } else if (acao == 4) {
-            if (inimigo.nome.equalsIgnoreCase("Valentine Morgenstern")) {
-                System.out.println("\n" + inimigo.nome + " é implacável! Fugir não é uma opção contra ele!");
-            } else if (dado.nextInt(100) < 50) {
-                System.out.println(negrito + "\nVocê aproveita uma distração e consegue escapar das garras de " + inimigo.nome + "!" + reset);
-                return;
-            } else {
-                System.out.println("\nO " + inimigo.nome + " é muito rápido! Ele bloqueia sua rota de fuga e te ataca!");
+                if (inimigo.nome.equalsIgnoreCase("Valentine Morgenstern")) {
+                    System.out.println("\n" + inimigo.nome + " é implacável! Fugir não é uma opção contra ele!");
+                } else if (dado.nextInt(100) < 50) {
+                    System.out.println(negrito + "\nVocê aproveita uma distração e consegue escapar das garras de " + inimigo.nome + "!" + reset);
+                    return;
+                } else {
+                    System.out.println("\nO " + inimigo.nome + " é muito rápido! Ele bloqueia sua rota de fuga e te ataca!");
 
-                int rolagemInimigo = dado.nextInt(6) + 1;
-                int danoInimigo = inimigo.ataque + rolagemInimigo - jogador.defesa;
+                    int rolagemInimigo = dado.nextInt(6) + 1;
+                    int danoInimigo = inimigo.ataque + rolagemInimigo - jogador.defesa;
 
-                if (danoInimigo > 0) jogador.receberDano(danoInimigo);
-                else danoInimigo = 0;
+                    if (danoInimigo > 0) jogador.receberDano(danoInimigo);
+                    else danoInimigo = 0;
 
-                System.out.println("Ele te acerta e causa " + danoInimigo + " de dano extra!");
+                    System.out.println("Ele te acerta e causa " + danoInimigo + " de dano extra!");
 
-                if (!jogador.estaVivo()) break;
+                    if (!jogador.estaVivo()) break;
+                }
             }
-        }
 
 
             if (inimigo.estaVivo() && dado.nextInt(100) < 15) {
@@ -58,22 +58,25 @@ class Batalha {
             }
         }
 
+        // --- LÓGICA DE FIM DE BATALHA REORGANIZADA ---
         if (jogador.estaVivo() && !inimigo.estaVivo()) {
             System.out.println("\n" + negrito + "Você derrotou o " + inimigo.nome + "!" + reset);
 
-            jogador.absorverInventario(inimigo);
-
-            if (!inimigo.inventario.estaVazio()) {
-                System.out.println("Você coletou os seguintes itens do inimigo:");
-                inimigo.inventario.listarItens();
-            } else {
-                System.out.println("O inimigo não carregava nenhum item.");
-            }
-
             if (inimigo.nome.equalsIgnoreCase("Valentine Morgenstern")) {
+                // Se o jogador vence Valentine, pula o loot/level-up e apenas encerra o jogo.
                 System.out.println(negrito + "Obrigado por nos ajudar a salvar o mundo das sombras!\n" + reset);
                 System.exit(0);
             } else {
+                // Lógica de loot e level up para inimigos normais
+                jogador.absorverInventario(inimigo);
+
+                if (!inimigo.inventario.estaVazio()) {
+                    System.out.println("Você coletou os seguintes itens do inimigo:");
+                    inimigo.inventario.listarItens();
+                } else {
+                    System.out.println("O inimigo não carregava nenhum item.");
+                }
+
                 jogador.nivel++;
                 jogador.ataque += 2;
                 jogador.defesa += 1;
@@ -81,6 +84,7 @@ class Batalha {
                 System.out.println("Com isso você sobe para o nível " + jogador.nivel + " e tem seus atributos melhorados.");
             }
         } else if (!jogador.estaVivo()) {
+            // Se o jogador é derrotado, apenas a mensagem de derrota é exibida. (Correto)
             System.out.println("\n" + negrito + "Você foi derrotado por " + inimigo.nome + "..." + reset);
         }
     }
