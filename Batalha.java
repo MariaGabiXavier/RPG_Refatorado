@@ -2,7 +2,7 @@ import java.util.*;
 
 class Batalha {
     public static void batalhar(Personagem jogador, Inimigo inimigo, Random dado, Scanner sc, String negrito, String reset) {
-        System.out.println("\nBatalha: " + negrito + jogador.nome + reset + " vs " + negrito + inimigo.nome + reset);
+        System.out.println("\nBatalha: " + negrito + jogador.getNome() + reset + " vs " + negrito + inimigo.getNome() + reset);
 
         while (jogador.estaVivo() && inimigo.estaVivo()) {
             System.out.println("\n" + negrito + "--- Novo Turno ---" + reset);
@@ -15,9 +15,8 @@ class Batalha {
             if (acao == 1) {
                 int rolagemJogador = dado.nextInt(6) + 1;
                 int rolagemInimigo = dado.nextInt(6) + 1;
-
-                int danoJogador = jogador.ataque + rolagemJogador - inimigo.defesa;
-                int danoInimigo = inimigo.ataque + rolagemInimigo - jogador.defesa;
+                int danoJogador = jogador.getAtaque() + rolagemJogador - inimigo.getDefesa();
+                int danoInimigo = inimigo.getAtaque() + rolagemInimigo - jogador.getDefesa();
 
                 if (danoJogador > 0) inimigo.receberDano(danoJogador);
                 else danoJogador = 0;
@@ -28,20 +27,20 @@ class Batalha {
                 System.out.println("\nVocê causou " + danoJogador + " de dano!");
                 System.out.println("O inimigo causou " + danoInimigo + " de dano!");
             } else if (acao == 2) {
-                jogador.inventario.usarItemPorNumero(sc, jogador);
+                jogador.getInventario().usarItemPorNumero(sc, jogador);
             } else if (acao == 3) {
                 jogador.habilidadeEspecial(dado, inimigo);
             } else if (acao == 4) {
-                if (inimigo.nome.equalsIgnoreCase("Valentine Morgenstern")) {
-                    System.out.println("\n" + inimigo.nome + " é implacável! Fugir não é uma opção contra ele!");
+                if (inimigo.getNome().equalsIgnoreCase("Valentine Morgenstern")) {
+                    System.out.println("\n" + inimigo.getNome() + " é implacável! Fugir não é uma opção contra ele!");
                 } else if (dado.nextInt(100) < 50) {
-                    System.out.println(negrito + "\nVocê aproveita uma distração e consegue escapar das garras de " + inimigo.nome + "!" + reset);
+                    System.out.println(negrito + "\nVocê aproveita uma distração e consegue escapar das garras de " + inimigo.getNome() + "!" + reset);
                     return;
                 } else {
-                    System.out.println("\nO " + inimigo.nome + " é muito rápido! Ele bloqueia sua rota de fuga e te ataca!");
+                    System.out.println("\nO " + inimigo.getNome() + " é muito rápido! Ele bloqueia sua rota de fuga e te ataca!");
 
                     int rolagemInimigo = dado.nextInt(6) + 1;
-                    int danoInimigo = inimigo.ataque + rolagemInimigo - jogador.defesa;
+                    int danoInimigo = inimigo.getAtaque() + rolagemInimigo - jogador.getDefesa();
 
                     if (danoInimigo > 0) jogador.receberDano(danoInimigo);
                     else danoInimigo = 0;
@@ -52,40 +51,34 @@ class Batalha {
                 }
             }
 
-
             if (inimigo.estaVivo() && dado.nextInt(100) < 15) {
                 inimigo.habilidadeEspecial(dado, inimigo);
             }
         }
 
-        // --- LÓGICA DE FIM DE BATALHA REORGANIZADA ---
         if (jogador.estaVivo() && !inimigo.estaVivo()) {
-            System.out.println("\n" + negrito + "Você derrotou o " + inimigo.nome + "!" + reset);
-
-            if (inimigo.nome.equalsIgnoreCase("Valentine Morgenstern")) {
-                // Se o jogador vence Valentine, pula o loot/level-up e apenas encerra o jogo.
+            System.out.println("\n" + negrito + "Você derrotou o " + inimigo.getNome() + "!" + reset);
+            if (inimigo.getNome().equalsIgnoreCase("Valentine Morgenstern")) {
                 System.out.println(negrito + "Obrigado por nos ajudar a salvar o mundo das sombras!\n" + reset);
                 System.exit(0);
             } else {
-                // Lógica de loot e level up para inimigos normais
                 jogador.absorverInventario(inimigo);
-
-                if (!inimigo.inventario.estaVazio()) {
-                    System.out.println("Você coletou os seguintes itens do inimigo:");
-                    inimigo.inventario.listarItens();
+                if (!inimigo.getInventario().estaVazio()) {
+                    System.out.println("Você coletou os seguintes itens do " + inimigo.getNome()+":");
+                    inimigo.getInventario().listarItens();
                 } else {
                     System.out.println("O inimigo não carregava nenhum item.");
                 }
 
-                jogador.nivel++;
-                jogador.ataque += 2;
-                jogador.defesa += 1;
-                jogador.pontosVida += 10;
-                System.out.println("Com isso você sobe para o nível " + jogador.nivel + " e tem seus atributos melhorados.");
+                jogador.setNivel(jogador.getNivel() + 1);
+                jogador.setAtaque(jogador.getAtaque() + 2);
+                jogador.setDefesa(jogador.getDefesa() + 1);
+                jogador.setPontosVida(jogador.getPontosVida() + 10);
+
+                System.out.println("Com isso você sobe para o nível " + jogador.getNivel() + " e tem seus atributos melhorados.");
             }
         } else if (!jogador.estaVivo()) {
-            // Se o jogador é derrotado, apenas a mensagem de derrota é exibida. (Correto)
-            System.out.println("\n" + negrito + "Você foi derrotado por " + inimigo.nome + "..." + reset);
+            System.out.println("\n" + negrito + "Você foi derrotado por " + inimigo.getNome() + "..." + reset);
         }
     }
 

@@ -85,33 +85,40 @@ public boolean equals(Object obj) {
             return;
         }
         quantidade--;
+
+        String nomePersonagem = p.getNome(); 
+        int hpAtual = p.getPontosVida();
+        int ataqueAtual = p.getAtaque();
+        int defesaAtual = p.getDefesa();
+
+
         switch (efeito.toLowerCase()) {
             case "cura":
-                p.pontosVida += 30;
-                System.out.println("\n" + p.nome + " usou " + nome + " e recuperou 30 HP!");
+                p.setPontosVida(hpAtual + 30); 
+                System.out.println("\n" + nomePersonagem + " usou " + nome + " e recuperou 30 HP!");
                 break;
             case "força":
-                p.ataque += 5;
-                System.out.println("\n" + p.nome + " usou " + nome + " e ganhou +5 de ataque!");
+                p.setAtaque(ataqueAtual + 5); 
+                System.out.println("\n" + nomePersonagem + " usou " + nome + " e ganhou +5 de ataque!");
                 break;
             case "cura_grande":
-                p.pontosVida += 60;
-                System.out.println("\n" + p.nome + " usou " + nome + " e recuperou 60 HP!");
+                p.setPontosVida(hpAtual + 60); 
+                System.out.println("\n" + nomePersonagem + " usou " + nome + " e recuperou 60 HP!");
                 break;
             case "defesa":
-                p.defesa += 5;
-                System.out.println("\n" + p.nome + " usou " + nome + " e ganhou +5 de defesa!");
+                p.setDefesa(defesaAtual + 5); 
+                System.out.println("\n" + nomePersonagem + " usou " + nome + " e ganhou +5 de defesa!");
                 break;
             case "elixir_força":
-                p.ataque += 3;
-                System.out.println("\n" + p.nome + " usou " + nome + " e ganhou +3 de ataque!");
+                p.setAtaque(ataqueAtual + 3); 
+                System.out.println("\n" + nomePersonagem + " usou " + nome + " e ganhou +3 de ataque!");
                 break;
             case "bonus_defesa":
-                p.defesa += 1;
-                System.out.println("\n" + p.nome + " usou " + nome + " e ganhou +1 de defesa!");
+                p.setDefesa(defesaAtual + 1); 
+                System.out.println("\n" + nomePersonagem + " usou " + nome + " e ganhou +1 de defesa!");
                 break;
             default:
-            System.out.println("\n" + p.nome + " usou " + nome + ": " + efeito);
+                System.out.println("\n" + nomePersonagem + " usou " + nome + ": " + efeito);
         }
     }
     public void adicionar(int qtd) {

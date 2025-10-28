@@ -2,24 +2,23 @@ import java.util.*;
 
 public class Jace extends Personagem implements Comparable<Jace> {
     public Jace() {
-        this.nome = "Jace Herondale";
-        this.pontosVida = 130;
-        this.ataque = 24;
-        this.defesa = 14;
-        this.nivel = 1;
-        this.inventario = new Inventario();
+        setNome("Jace Herondale");
+        setPontosVida(130);
+        setAtaque(24);
+        setDefesa(14);
+        setNivel(1);
     }
 
     public Jace(Jace modelo) throws Exception {
         if (modelo == null)
             throw new Exception("Modelo ausente");
 
-        this.nome = modelo.nome;
-        this.pontosVida = modelo.pontosVida;
-        this.ataque = modelo.ataque;
-        this.defesa = modelo.defesa;
-        this.nivel = modelo.nivel;
-        this.inventario = (Inventario)modelo.inventario.clone();
+        setNome(modelo.getNome());
+        setPontosVida(modelo.getPontosVida());
+        setAtaque(modelo.getAtaque());
+        setDefesa(modelo.getDefesa());
+        setNivel(modelo.getNivel());
+        setInventario((Inventario)modelo.getInventario().clone());
     }
 
     @Override
@@ -33,7 +32,7 @@ public class Jace extends Personagem implements Comparable<Jace> {
 
     @Override
     public String toString() {
-        return this.nome + " [HP=" + this.pontosVida + ", Ataque=" + this.ataque + ", Defesa=" + this.defesa + ", Nível=" + this.nivel + "]";
+        return getNome() + " [HP=" + getPontosVida() + ", Ataque=" + getAtaque() + ", Defesa=" + getDefesa() + ", Nível=" + getNivel() + "]";
     }
 
     @Override
@@ -42,50 +41,48 @@ public class Jace extends Personagem implements Comparable<Jace> {
         if (obj == null) return false;
         if (obj.getClass() != this.getClass()) return false;
         Jace j = (Jace)obj;
-        if (!this.nome.equalsIgnoreCase(j.nome)) return false;
-        if (this.pontosVida != j.pontosVida) return false;
-        if (this.ataque != j.ataque) return false;
-        if (this.defesa != j.defesa) return false;
-        if (this.nivel != j.nivel) return false;
-        if (!this.inventario.equals(j.inventario)) return false;
+        if (!getNome().equalsIgnoreCase(j.getNome())) return false;
+        if (getPontosVida() != j.getPontosVida()) return false;
+        if (getAtaque() != j.getAtaque()) return false;
+        if (getDefesa() != j.getDefesa()) return false;
+        if (getNivel() != j.getNivel()) return false;
+        if (!getInventario().equals(j.getInventario())) return false;
         return true;
     }
 
     @Override
     public int hashCode() {
         int retorno = 1;
-        retorno = retorno * 3 + this.nome.toLowerCase().hashCode();
-        retorno = retorno * 5 + ((Integer)this.pontosVida).hashCode();
-        retorno = retorno * 7 + ((Integer)this.ataque).hashCode();
-        retorno = retorno * 11 + ((Integer)this.defesa).hashCode();
-        retorno = retorno * 13 + ((Integer)this.nivel).hashCode();
-        retorno = retorno * 17 + this.inventario.hashCode();
+        retorno = retorno * 3 + getNome().toLowerCase().hashCode();
+        retorno = retorno * 5 + ((Integer)getPontosVida()).hashCode();
+        retorno = retorno * 7 + ((Integer)getAtaque()).hashCode();
+        retorno = retorno * 11 + ((Integer)getDefesa()).hashCode();
+        retorno = retorno * 13 + ((Integer)getNivel()).hashCode();
+        retorno = retorno * 17 + getInventario().hashCode();
         if (retorno < 0) retorno = -retorno;
         return retorno;
     }
 
     @Override
     public int compareTo(Jace j) {
-        if (this == j) return 0;
-        return this.nome.compareToIgnoreCase(j.nome);
+        return getNome().compareToIgnoreCase(j.getNome());
     }
 
     @Override
-public void habilidadeEspecial(Random dado, Inimigo inimigo) {
-    int rolagem = dado.nextInt(6) + 1;
-    System.out.println("\n" + nome + " tenta usar sua Espada Mortal...");
+    public void habilidadeEspecial(Random dado, Inimigo inimigo) {
+        int rolagem = dado.nextInt(6) + 1;
+        System.out.println("\n" + getNome() + " tenta usar sua Espada Mortal...");
 
-    if (rolagem >= 4) {
-        int dano = ataque + 6 + rolagem - inimigo.defesa;
-        if (dano > 0) {
-            inimigo.receberDano(dano);
-            System.out.println(nome + " acerta com precisão! Causa " + dano + " de dano direto!");
+        if (rolagem >= 4) {
+            int dano = getAtaque() + 6 + rolagem - inimigo.getDefesa();
+            if (dano > 0) {
+                inimigo.receberDano(dano);
+                System.out.println(getNome() + " acerta com precisão! Causa " + dano + " de dano direto!");
+            } else {
+                System.out.println(getNome() + " acerta, mas o inimigo resiste! Sem dano efetivo.");
+            }
         } else {
-            System.out.println(nome + " acerta, mas o inimigo resiste! Sem dano efetivo.");
+            System.out.println("O golpe falha! " + inimigo.getNome() + " se esquiva da Espada Mortal.");
         }
-    } else {
-        System.out.println("O golpe falha! " + inimigo.nome + " se esquiva da Espada Mortal.");
     }
-}
-
 }

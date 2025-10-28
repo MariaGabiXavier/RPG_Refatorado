@@ -1,12 +1,12 @@
 import java.util.*;
 
 public abstract class Personagem implements Cloneable {
-    String nome;
-    int pontosVida;
-    int ataque;
-    int defesa;
-    int nivel;
-    Inventario inventario;
+    private String nome;
+    private int pontosVida;
+    private int ataque;
+    private int defesa;
+    private int nivel;
+    private Inventario inventario;
 
     public Personagem() {
         this.nome = "";
@@ -92,9 +92,56 @@ public abstract class Personagem implements Cloneable {
             pontosVida = 0;
     }
     public void absorverInventario(Inimigo inimigo) {
-    for (Item item : inimigo.inventario.getItens()) {
+    for (Item item : inimigo.getInventario().getItens()) {
         this.inventario.adicionarItem(item);
     }
 }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public int getPontosVida() {
+        return pontosVida;
+    }
+
+    public int getAtaque() {
+        return ataque;
+    }
+
+    public int getDefesa() {
+        return defesa;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public Inventario getInventario() {
+        return inventario;
+    }
+    
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setPontosVida(int pontosVida) {
+        this.pontosVida = Math.max(0, pontosVida); 
+    }
+
+    public void setAtaque(int ataque) {
+        this.ataque = ataque;
+    }
+
+    public void setDefesa(int defesa) {
+        this.defesa = defesa;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+}
+
+    public void setInventario(Inventario inventario) {
+        this.inventario = inventario;
+    }
 }

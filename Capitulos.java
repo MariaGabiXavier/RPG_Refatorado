@@ -39,9 +39,9 @@ class Capitulos {
             if (subEscolha == 1) {
                 if (dado.nextInt(100) < 65) { 
                     System.out.println("\nO baú se abre! Você encontra uma Poção de Cura Superior e Pontos de Vida extra!");
-                    jogador.inventario.adicionarItem(new Item("Poção Superior", "Restaura 60 HP", "cura_grande", 1));
+                    jogador.getInventario().adicionarItem(new Item("Poção Superior", "Restaura 60 HP", "cura_grande", 1));
                     System.out.println("Ganhou 15 HP."); 
-                    jogador.pontosVida += 15; 
+                    jogador.setPontosVida(jogador.getPontosVida() + 15); 
                 } else {
                     System.out.println("\nO baú estava amaldiçoado! Ele explode, e a maldição atrai um Demônio Menor fora do controle!");
                     Batalha.batalhar(jogador, new Inimigo("Demônio Menor", 60, 14, 6, 1), dado, sc, negrito, reset);
@@ -55,7 +55,7 @@ class Capitulos {
             
             if (jogador.estaVivo()) {
                 System.out.println("Ao derrotar o demônio, você encontra um Amuleto de Sorte!");
-                jogador.inventario.adicionarItem(new Item("Amuleto de Sorte", "Defesa aumentada", "bonus_defesa", 1));
+                jogador.getInventario().adicionarItem(new Item("Amuleto de Sorte", "Defesa aumentada", "bonus_defesa", 1));
             }
         }
     }
@@ -75,12 +75,12 @@ class Capitulos {
             if (dado.nextInt(100) < 50) {
                 System.out.println(negrito + "Silêncio perfeito!" + reset + " Você encontra a chave e entra na biblioteca sem ser notado.");
                 System.out.println("Você encontra um elfo que te oferece um Ponto de Habilidade. Seu Ataque aumenta em 2!");
-                jogador.ataque += 2;
-                System.out.println("Seu Ataque aumentou para: " + jogador.ataque);
+                jogador.setAtaque(jogador.getAtaque() + 2);
+                System.out.println("Seu Ataque aumentou para: " + jogador.getAtaque());
             } else {
                 System.out.println("\nVocê pisa em uma runa! A sala se enche de fumaça tóxica.");
                 jogador.receberDano(10);
-                System.out.println("Perdeu 10 HP. HP atual: " + jogador.pontosVida);
+                System.out.println("Perdeu 10 HP. HP atual: " + jogador.getPontosVida());
                 System.out.println("A explosão atraiu um... Guardião Secreto!");
                 Batalha.batalhar(jogador, new Inimigo("Guardião Secreto", 75, 16, 8, 1), dado, sc, negrito, reset);
             }
@@ -125,8 +125,8 @@ class Capitulos {
             
             if (jogador.estaVivo()) {
                 System.out.println("Magnus deixou cair uma Poção de Força. Você ganha +3 de ataque!");
-                jogador.ataque += 3;
-                System.out.println("Seu Ataque aumentou para: " + jogador.ataque);
+                jogador.setAtaque(jogador.getAtaque() + 3);
+                System.out.println("Seu Ataque aumentou para: " + jogador.getAtaque());
             }
         } else {
             System.out.println("\nVocê tenta passar pelo Corredor Principal, que está repleto de armadilhas rúnicas ativadas.");
@@ -139,7 +139,7 @@ class Capitulos {
             if (subEscolha == 1) {
                 System.out.println("\nVocê escolhe a Runa da Dor. É uma distração! A armadilha explode em chamas!");
                 jogador.receberDano(30);
-                System.out.println("Perdeu 30 HP. HP atual: " + jogador.pontosVida);
+                System.out.println("Perdeu 30 HP. HP atual: " + jogador.getPontosVida());
                 System.out.println("A explosão atrai um Demônio Maior de Patrulha que estava na vigilância!");
                 Batalha.batalhar(jogador, new Inimigo("Demônio Maior", 150, 18, 9, 3), dado, sc, negrito, reset);
             } else {
@@ -161,9 +161,9 @@ class Capitulos {
             if (escolha == 1) {
                 pronto = true;
             } else if (escolha == 2) {
-                jogador.inventario.usarItemPorNumero(sc, jogador);
+                jogador.getInventario().usarItemPorNumero(sc, jogador);
             } else if (escolha == 3) {
-                jogador.inventario.listarItens(); 
+                jogador.getInventario().listarItens(); 
             }
         }
         

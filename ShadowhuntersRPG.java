@@ -31,10 +31,10 @@ public class ShadowhuntersRPG {
             return;
         }
 
-        jogador.inventario.adicionarItem(new Item("Poção de Cura", "Restaura 30 HP", "cura", 2));
-        jogador.inventario.adicionarItem(new Item("Tônico de Força", "Aumenta ataque temporariamente", "força", 1));
+        jogador.getInventario().adicionarItem(new Item("Poção de Cura", "Restaura 30 HP", "cura", 2));
+        jogador.getInventario().adicionarItem(new Item("Tônico de Força", "Aumenta ataque temporariamente", "força", 1));
 
-        System.out.println("\nOlá " + jogador.nome + "! Sua missão de hoje é impedir que Valentine use o cálice para abrir o Portal e criar um exército mortal.");
+        System.out.println("\nOlá " + jogador.getNome() + "! Sua missão de hoje é impedir que Valentine use o cálice para abrir o Portal e criar um exército mortal.");
         System.out.println("Caminhe com cuidado! Armadilhas e inimigos te aguardam.");
 
         Capitulos.capitulo1(jogador, dado, sc, negrito, reset);
