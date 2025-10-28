@@ -1,12 +1,12 @@
 import java.util.*;
 
 public abstract class Personagem implements Cloneable {
-    private String nome;
-    private int pontosVida;
-    private int ataque;
-    private int defesa;
-    private int nivel;
-    private Inventario inventario;
+    protected String nome;
+    protected int pontosVida;
+    protected int ataque;
+    protected int defesa;
+    protected int nivel;
+    protected Inventario inventario;
 
     public Personagem() {
         this.nome = "";

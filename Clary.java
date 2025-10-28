@@ -2,23 +2,23 @@ import java.util.*;
 
 public class Clary extends Personagem implements Comparable<Clary> {
     public Clary() {
-        setNome("Clary Fairchild");
-        setPontosVida(110);
-        setAtaque(18);
-        setDefesa(10);
-        setNivel(1);
+        this.nome = "Clary Fairchild";
+        this.pontosVida = 110;
+        this.ataque = 18;
+        this.defesa = 10;
+        this.nivel = 1;
     }
 
     public Clary(Clary modelo) throws Exception {
         if (modelo == null)
             throw new Exception("Modelo ausente");
 
-        setNome(modelo.getNome());
-        setPontosVida(modelo.getPontosVida());
-        setAtaque(modelo.getAtaque());
-        setDefesa(modelo.getDefesa());
-        setNivel(modelo.getNivel());
-        setInventario((Inventario)modelo.getInventario().clone());
+        this.nome = modelo.nome;
+        this.pontosVida = modelo.pontosVida;
+        this.ataque = modelo.ataque;
+        this.defesa = modelo.defesa;
+        this.nivel = modelo.nivel;
+        this.inventario = (Inventario)modelo.inventario.clone();
     }
 
     @Override
@@ -32,7 +32,7 @@ public class Clary extends Personagem implements Comparable<Clary> {
 
     @Override
     public String toString() {
-        return getNome() + " [HP=" + getPontosVida() + ", Ataque=" + getAtaque() + ", Defesa=" + getDefesa() + ", Nível=" + getNivel() + "]";
+        return this.nome + " [HP=" + this.pontosVida + ", Ataque=" + this.ataque + ", Defesa=" + this.defesa + ", Nível=" + this.nivel + "]";
     }
 
     @Override
@@ -41,24 +41,24 @@ public class Clary extends Personagem implements Comparable<Clary> {
         if (obj == null) return false;
         if (obj.getClass() != this.getClass()) return false;
         Clary c = (Clary)obj;
-        if (!getNome().equalsIgnoreCase(c.getNome())) return false;
-        if (getPontosVida() != c.getPontosVida()) return false;
-        if (getAtaque() != c.getAtaque()) return false;
-        if (getDefesa() != c.getDefesa()) return false;
-        if (getNivel() != c.getNivel()) return false;
-        if (!getInventario().equals(c.getInventario())) return false;
+        if (!this.nome.equalsIgnoreCase(c.nome)) return false;
+        if (this.pontosVida != c.pontosVida) return false;
+        if (this.ataque != c.ataque) return false;
+        if (this.defesa != c.defesa) return false;
+        if (this.nivel != c.nivel) return false;
+        if (!this.inventario.equals(c.inventario)) return false;
         return true;
     }
 
     @Override
     public int hashCode() {
         int retorno = 1;
-        retorno = retorno * 3 + getNome().toLowerCase().hashCode();
-        retorno = retorno * 5 + ((Integer)getPontosVida()).hashCode();
-        retorno = retorno * 7 + ((Integer)getAtaque()).hashCode();
-        retorno = retorno * 11 + ((Integer)getDefesa()).hashCode();
-        retorno = retorno * 13 + ((Integer)getNivel()).hashCode();
-        retorno = retorno * 17 + getInventario().hashCode();
+        retorno = retorno * 3 + this.nome.toLowerCase().hashCode();
+        retorno = retorno * 5 + ((Integer)this.pontosVida).hashCode();
+        retorno = retorno * 7 + ((Integer)this.ataque).hashCode();
+        retorno = retorno * 11 + ((Integer)this.defesa).hashCode();
+        retorno = retorno * 13 + ((Integer)this.nivel).hashCode();
+        retorno = retorno * 17 + this.inventario.hashCode();
         if (retorno < 0) retorno = -retorno;
         return retorno;
     }
@@ -66,22 +66,22 @@ public class Clary extends Personagem implements Comparable<Clary> {
     @Override
     public int compareTo(Clary c) {
         if (this == c) return 0;
-        return getNome().compareToIgnoreCase(c.getNome());
+        return this.nome.compareToIgnoreCase(c.nome);
     }
 
     @Override
     public void habilidadeEspecial(Random dado, Inimigo inimigo) {
         int rolagem = dado.nextInt(6) + 1;
-        System.out.println("\n" + getNome() + " invoca uma Runa Mística...");
+        System.out.println("\n" + this.nome + " invoca uma Runa Mística...");
 
         if (rolagem <= 2) {
             System.out.println("A runa falha em brilhar. Nada acontece.");
         } else if (rolagem <= 4) {
-            setPontosVida(getPontosVida() + 30);
-            System.out.println(getNome() + " ativa a Runa de Criação e recupera 30 HP!");
+            this.pontosVida += 30;
+            System.out.println(this.nome + " ativa a Runa de Criação e recupera 30 HP!");
         } else {
-            setAtaque(getAtaque() + 8);
-            System.out.println(getNome() + " ativa a Runa de Fúria e ganha +8 de ataque!");
+            this.ataque += 8;
+            System.out.println(this.nome + " ativa a Runa de Fúria e ganha +8 de ataque!");
         }
     }
 }
