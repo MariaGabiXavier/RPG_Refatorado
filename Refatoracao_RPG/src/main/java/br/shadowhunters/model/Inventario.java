@@ -1,3 +1,5 @@
+package Refatoracao_RPG.src.main.java.br.shadowhunters.model;
+
 import java.util.*;
 
 public class Inventario implements Cloneable, Comparable<Inventario> {
@@ -95,7 +97,7 @@ public class Inventario implements Cloneable, Comparable<Inventario> {
                 return;
             }
         }
-        System.out.println("Item '" + nomeItem + "' não encontrado no inventário.");
+        System.out.println("Refatoracao_RPG.src.main.java.br.shadowhunters.model.Item '" + nomeItem + "' não encontrado no inventário.");
     }
     public ArrayList<Item> getItens() {
         return new ArrayList<>(this.itens); 

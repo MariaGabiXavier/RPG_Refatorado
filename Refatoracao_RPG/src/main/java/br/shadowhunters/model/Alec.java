@@ -1,8 +1,10 @@
+package Refatoracao_RPG.src.main.java.br.shadowhunters.model;
+
 import java.util.*;
 
 public class Alec extends Personagem implements Comparable<Alec> {
     public Alec() {
-        this.nome = "Alec Lightwood";
+        this.nome = "Refatoracao_RPG.src.main.java.br.shadowhunters.model.Alec Lightwood";
         this.pontosVida = 120;
         this.ataque = 19;
         this.defesa = 13;

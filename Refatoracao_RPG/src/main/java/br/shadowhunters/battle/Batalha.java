@@ -1,8 +1,13 @@
+package Refatoracao_RPG.src.main.java.br.shadowhunters.battle;
+
+import Refatoracao_RPG.src.main.java.br.shadowhunters.model.Inimigo;
+import Refatoracao_RPG.src.main.java.br.shadowhunters.model.Personagem;
+
 import java.util.*;
 
 class Batalha {
     public static void batalhar(Personagem jogador, Inimigo inimigo, Random dado, Scanner sc, String negrito, String reset) {
-        System.out.println("\nBatalha: " + negrito + jogador.getNome() + reset + " vs " + negrito + inimigo.getNome() + reset);
+        System.out.println("\nRefatoracao_RPG.src.main.java.br.shadowhunters.battle.Batalha: " + negrito + jogador.getNome() + reset + " vs " + negrito + inimigo.getNome() + reset);
 
         while (jogador.estaVivo() && inimigo.estaVivo()) {
             System.out.println("\n" + negrito + "--- Novo Turno ---" + reset);

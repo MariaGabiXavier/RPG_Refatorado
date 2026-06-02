@@ -1,3 +1,9 @@
+package Refatoracao_RPG.src.main.java.br.shadowhunters.chapter;
+
+import Refatoracao_RPG.src.main.java.br.shadowhunters.model.Inimigo;
+import Refatoracao_RPG.src.main.java.br.shadowhunters.model.Item;
+import Refatoracao_RPG.src.main.java.br.shadowhunters.model.Personagem;
+
 import java.util.*;
 
 class Capitulos {

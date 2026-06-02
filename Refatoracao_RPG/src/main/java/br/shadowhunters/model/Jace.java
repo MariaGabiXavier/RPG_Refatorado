@@ -1,8 +1,10 @@
+package Refatoracao_RPG.src.main.java.br.shadowhunters.model;
+
 import java.util.*;
 
 public class Jace extends Personagem implements Comparable<Jace> {
     public Jace() {
-        this.nome = "Jace Herondale";
+        this.nome = "Refatoracao_RPG.src.main.java.br.shadowhunters.model.Jace Herondale";
         this.pontosVida = 130;
         this.ataque = 24;
         this.defesa = 14;

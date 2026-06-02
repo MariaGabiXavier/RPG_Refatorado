@@ -1,8 +1,10 @@
+package Refatoracao_RPG.src.main.java.br.shadowhunters.model;
+
 import java.util.*;
 
 public class Isabelle extends Personagem implements Comparable<Isabelle> {
     public Isabelle() {
-        this.nome = "Isabelle Lightwood";
+        this.nome = "Refatoracao_RPG.src.main.java.br.shadowhunters.model.Isabelle Lightwood";
         this.pontosVida = 115;
         this.ataque = 20;
         this.defesa = 12;

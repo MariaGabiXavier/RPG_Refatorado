@@ -1,3 +1,5 @@
+package Refatoracao_RPG.src.main.java.br.shadowhunters.model;
+
 import java.util.*;
 
 public abstract class Personagem implements Cloneable {

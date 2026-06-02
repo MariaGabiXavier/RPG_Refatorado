@@ -1,8 +1,10 @@
+package Refatoracao_RPG.src.main.java.br.shadowhunters.model;
+
 import java.util.*;
 
 public class Clary extends Personagem implements Comparable<Clary> {
     public Clary() {
-        this.nome = "Clary Fairchild";
+        this.nome = "Refatoracao_RPG.src.main.java.br.shadowhunters.model.Clary Fairchild";
         this.pontosVida = 110;
         this.ataque = 18;
         this.defesa = 10;

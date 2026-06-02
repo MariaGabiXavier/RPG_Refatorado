@@ -1,3 +1,5 @@
+package Refatoracao_RPG.src.main.java.br.shadowhunters.model;
+
 public class Item implements Comparable<Item>, Cloneable {
     private String nome;
     private String descricao;

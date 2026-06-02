@@ -1,3 +1,6 @@
+import Refatoracao_RPG.src.main.java.br.shadowhunters.chapter.Capitulos;
+import Refatoracao_RPG.src.main.java.br.shadowhunters.model.*;
+
 import java.util.*;
 
 public class ShadowhuntersRPG {
@@ -8,10 +11,10 @@ public class ShadowhuntersRPG {
         String reset = "\u001B[0m"; 
 
         System.out.println("\n===" + negrito + " SHADOWHUNTERS: O PORTAL DE VALENTINE" + reset + " ===\n");
-        System.out.println("1 -" + negrito + " Clary Fairchild" + reset + " (Runas: cura/força)");
-        System.out.println("2 -" + negrito + " Jace Herondale" + reset + " (Espada: alto dano)");
-        System.out.println("3 -" + negrito + " Isabelle Lightwood" + reset + " (Chicote: ataques rápidos)");
-        System.out.println("4 -" + negrito + " Alec Lightwood" + reset + " (Arco: precisão/crítico)");
+        System.out.println("1 -" + negrito + " Refatoracao_RPG.src.main.java.br.shadowhunters.model.Clary Fairchild" + reset + " (Runas: cura/força)");
+        System.out.println("2 -" + negrito + " Refatoracao_RPG.src.main.java.br.shadowhunters.model.Jace Herondale" + reset + " (Espada: alto dano)");
+        System.out.println("3 -" + negrito + " Refatoracao_RPG.src.main.java.br.shadowhunters.model.Isabelle Lightwood" + reset + " (Chicote: ataques rápidos)");
+        System.out.println("4 -" + negrito + " Refatoracao_RPG.src.main.java.br.shadowhunters.model.Alec Lightwood" + reset + " (Arco: precisão/crítico)");
         System.out.print("Escolha seu Shadowhunter:");
 
         int escolha = lerInt(sc, 1, 4);
