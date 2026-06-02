@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0de1f751-4423-41e7-b282-8736062f053f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RPG_Refatorado.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/Refatoracao_RPG.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/src/main/java/br/shadowhunters/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/src/main/java/br/shadowhunters/battle/Batalha.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/src/main/java/br/shadowhunters/chapter/Capitulos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/src/main/java/br/shadowhunters/model/Alec.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/src/main/java/br/shadowhunters/model/Clary.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/src/main/java/br/shadowhunters/model/Inimigo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/src/main/java/br/shadowhunters/model/Inventario.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/src/main/java/br/shadowhunters/model/Isabelle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/src/main/java/br/shadowhunters/model/Item.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/src/main/java/br/shadowhunters/model/Jace.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Refatoracao_RPG/src/main/java/br/shadowhunters/model/Personagem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShadowhuntersRPG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/shadowhunters/ShadowhuntersRPG.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="3EYfFojIQi7I5ZMVoSR5DygSQHR" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/mariagabi/RPG_Refatorado",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "/Users/mariagabi/RPG_Refatorado/src/main/java/src/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/br/shadowhunters" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="Refatoracao_RPG.src.main.java.br.shadowhunters.battle" />
+      <recent name="Refatoracao_RPG.src.main.java.br.shadowhunters.chapter" />
+      <recent name="Refatoracao_RPG.src.main.java.br.shadowhunters.model" />
+      <recent name="Refatoracao_RPG.src" />
+      <recent name="Refatoracao_RPG.src.main.java" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0de1f751-4423-41e7-b282-8736062f053f" name="Changes" comment="" />
+      <created>1780360322291</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1780360322291</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/src/Main.java</url>
+          <line>10</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

@@ -1,0 +1,112 @@
+package br.shadowhunters.model;
+
+import java.util.Random;
+
+public abstract class Personagem implements Cloneable {
+
+    protected String nome;
+    protected int pontosVida;
+    protected int ataque;
+    protected int defesa;
+    protected int nivel;
+    protected br.shadowhunters.model.Inventario inventario;
+
+    protected Personagem() {
+        this.inventario = new br.shadowhunters.model.Inventario();
+    }
+
+    protected Personagem(String nome, int pontosVida, int ataque, int defesa, int nivel) {
+        this.nome = nome;
+        this.pontosVida = pontosVida;
+        this.ataque = ataque;
+        this.defesa = defesa;
+        this.nivel = nivel;
+        this.inventario = new br.shadowhunters.model.Inventario();
+    }
+
+    protected Personagem(Personagem modelo) {
+        if (modelo == null) throw new IllegalArgumentException("Modelo de personagem ausente");
+        this.nome = modelo.nome;
+        this.pontosVida = modelo.pontosVida;
+        this.ataque = modelo.ataque;
+        this.defesa = modelo.defesa;
+        this.nivel = modelo.nivel;
+        this.inventario = (br.shadowhunters.model.Inventario) modelo.inventario.clone();
+    }
+
+    @Override
+    public Object clone() {
+        try {
+            return this.getClass().getConstructor(this.getClass()).newInstance(this);
+        } catch (Exception e) {
+            throw new RuntimeException("Falha ao clonar personagem: " + nome, e);
+        }
+    }
+
+    //subclasses implementam a lógica de habilidade
+    public abstract void habilidadeEspecial(Random dado, Inimigo inimigo);
+
+    // Comportamento comum
+    public boolean estaVivo() {
+        return pontosVida > 0;
+    }
+
+    public void receberDano(int dano) {
+        pontosVida = Math.max(0, pontosVida - dano);
+    }
+
+    public void absorverInventario(Inimigo inimigo) {
+        for (br.shadowhunters.model.Item item : inimigo.getInventario().getItens()) {
+            inventario.adicionarItem(item);
+        }
+    }
+
+    // Object overrides
+    @Override
+    public String toString() {
+        return nome + " [HP=" + pontosVida
+                + ", Ataque=" + ataque
+                + ", Defesa=" + defesa
+                + ", Nível=" + nivel + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof Personagem)) return false;
+        Personagem outro = (Personagem) obj;
+        if (getClass() != outro.getClass()) return false;
+        return nome.equalsIgnoreCase(outro.nome)
+                && pontosVida == outro.pontosVida
+                && ataque == outro.ataque
+                && defesa == outro.defesa
+                && nivel == outro.nivel
+                && inventario.equals(outro.inventario);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 1;
+        hash = hash * 31 + nome.toLowerCase().hashCode();
+        hash = hash * 31 + Integer.hashCode(pontosVida);
+        hash = hash * 31 + Integer.hashCode(ataque);
+        hash = hash * 31 + Integer.hashCode(defesa);
+        hash = hash * 31 + Integer.hashCode(nivel);
+        hash = hash * 31 + inventario.hashCode();
+        return Math.abs(hash);
+    }
+
+    public String getNome()          { return nome; }
+    public int getPontosVida()       { return pontosVida; }
+    public int getAtaque()           { return ataque; }
+    public int getDefesa()           { return defesa; }
+    public int getNivel()            { return nivel; }
+    public br.shadowhunters.model.Inventario getInventario(){ return inventario; }
+
+    public void setNome(String nome)              { this.nome = nome; }
+    public void setPontosVida(int pontosVida)     { this.pontosVida = Math.max(0, pontosVida); }
+    public void setAtaque(int ataque)             { this.ataque = ataque; }
+    public void setDefesa(int defesa)             { this.defesa = defesa; }
+    public void setNivel(int nivel)               { this.nivel = nivel; }
+    public void setInventario(br.shadowhunters.model.Inventario inv)     { this.inventario = inv; }
+}
