@@ -1,107 +1,145 @@
-package Refatoracao_RPG.src.main.java.br.shadowhunters.battle;
+package br.shadowhunters.battle;
 
-import Refatoracao_RPG.src.main.java.br.shadowhunters.model.Inimigo;
-import Refatoracao_RPG.src.main.java.br.shadowhunters.model.Personagem;
+import br.shadowhunters.model.Inimigo;
+import br.shadowhunters.model.Personagem;
+import br.shadowhunters.ui.Console;
+import br.shadowhunters.util.InputUtil;
 
-import java.util.*;
+import java.util.Random;
+import java.util.Scanner;
 
-class Batalha {
-    public static void batalhar(Personagem jogador, Inimigo inimigo, Random dado, Scanner sc, String negrito, String reset) {
-        System.out.println("\nRefatoracao_RPG.src.main.java.br.shadowhunters.battle.Batalha: " + negrito + jogador.getNome() + reset + " vs " + negrito + inimigo.getNome() + reset);
+public class Batalha {
+
+    private static final int CHANCE_HABILIDADE_INIMIGO_PERCENTUAL = 15;
+    private static final int CHANCE_FUGA_PERCENTUAL               = 50;
+
+    private final Personagem jogador;
+    private final Inimigo    inimigo;
+    private final Random     dado;
+    private final Scanner    sc;
+
+    public Batalha(Personagem jogador, Inimigo inimigo, Random dado, Scanner sc) {
+        this.jogador = jogador;
+        this.inimigo = inimigo;
+        this.dado    = dado;
+        this.sc      = sc;
+    }
+
+    public void executar() {
+        Console.titulo("Batalha: " + jogador.getNome() + " vs " + inimigo.getNome());
 
         while (jogador.estaVivo() && inimigo.estaVivo()) {
-            System.out.println("\n" + negrito + "--- Novo Turno ---" + reset);
-            System.out.println(jogador);
-            System.out.println(inimigo);
-            System.out.println("Ações: 1-Atacar 2-Usar item 3-Habilidade especial 4-Fugir");
-            System.out.print("Escolha: ");
-            int acao = lerInt(sc, 1, 4);
+            exibirTurno();
+            int acao = solicitarAcao();
+            processarAcaoJogador(acao);
 
-            if (acao == 1) {
-                int rolagemJogador = dado.nextInt(6) + 1;
-                int rolagemInimigo = dado.nextInt(6) + 1;
-                int danoJogador = jogador.getAtaque() + rolagemJogador - inimigo.getDefesa();
-                int danoInimigo = inimigo.getAtaque() + rolagemInimigo - jogador.getDefesa();
+            if (acao == 4 && !inimigo.estaVivo()) return; // fuga bem-sucedida
 
-                if (danoJogador > 0) inimigo.receberDano(danoJogador);
-                else danoJogador = 0;
-
-                if (danoInimigo > 0) jogador.receberDano(danoInimigo);
-                else danoInimigo = 0;
-
-                System.out.println("\nVocê causou " + danoJogador + " de dano!");
-                System.out.println("O inimigo causou " + danoInimigo + " de dano!");
-            } else if (acao == 2) {
-                jogador.getInventario().usarItemPorNumero(sc, jogador);
-            } else if (acao == 3) {
-                jogador.habilidadeEspecial(dado, inimigo);
-            } else if (acao == 4) {
-                if (inimigo.getNome().equalsIgnoreCase("Valentine Morgenstern")) {
-                    System.out.println("\n" + inimigo.getNome() + " é implacável! Fugir não é uma opção contra ele!");
-                } else if (dado.nextInt(100) < 50) {
-                    System.out.println(negrito + "\nVocê aproveita uma distração e consegue escapar das garras de " + inimigo.getNome() + "!" + reset);
-                    return;
-                } else {
-                    System.out.println("\nO " + inimigo.getNome() + " é muito rápido! Ele bloqueia sua rota de fuga e te ataca!");
-
-                    int rolagemInimigo = dado.nextInt(6) + 1;
-                    int danoInimigo = inimigo.getAtaque() + rolagemInimigo - jogador.getDefesa();
-
-                    if (danoInimigo > 0) jogador.receberDano(danoInimigo);
-                    else danoInimigo = 0;
-
-                    System.out.println("Ele te acerta e causa " + danoInimigo + " de dano extra!");
-
-                    if (!jogador.estaVivo()) break;
-                }
-            }
-
-            if (inimigo.estaVivo() && dado.nextInt(100) < 15) {
+            if (inimigo.estaVivo() && dado.nextInt(100) < CHANCE_HABILIDADE_INIMIGO_PERCENTUAL) {
                 inimigo.habilidadeEspecial(dado, inimigo);
             }
         }
 
-        if (jogador.estaVivo() && !inimigo.estaVivo()) {
-            System.out.println("\n" + negrito + "Você derrotou o " + inimigo.getNome() + "!" + reset);
-            if (inimigo.getNome().equalsIgnoreCase("Valentine Morgenstern")) {
-                System.out.println(negrito + "Obrigado por nos ajudar a salvar o mundo das sombras!\n" + reset);
-                System.exit(0);
-            } else {
-                jogador.absorverInventario(inimigo);
-                if (!inimigo.getInventario().estaVazio()) {
-                    System.out.println("Você coletou os seguintes itens do " + inimigo.getNome()+":");
-                    inimigo.getInventario().listarItens();
-                } else {
-                    System.out.println("O inimigo não carregava nenhum item.");
-                }
+        encerrarBatalha();
+    }
 
-                jogador.setNivel(jogador.getNivel() + 1);
-                jogador.setAtaque(jogador.getAtaque() + 2);
-                jogador.setDefesa(jogador.getDefesa() + 1);
-                jogador.setPontosVida(jogador.getPontosVida() + 10);
+    private void exibirTurno() {
+        System.out.println("\n--- Novo Turno ---");
+        System.out.println(jogador);
+        System.out.println(inimigo);
+    }
 
-                System.out.println("Com isso você sobe para o nível " + jogador.getNivel() + " e tem seus atributos melhorados.");
-            }
-        } else if (!jogador.estaVivo()) {
-            System.out.println("\n" + negrito + "Você foi derrotado por " + inimigo.getNome() + "..." + reset);
+    private int solicitarAcao() {
+        System.out.println("Ações: 1-Atacar  2-Usar item  3-Habilidade especial  4-Fugir");
+        System.out.print("Escolha: ");
+        return InputUtil.lerIntervalo(sc, 1, 4);
+    }
+
+    private void processarAcaoJogador(int acao) {
+        switch (acao) {
+            case 1: realizarAtaque();           break;
+            case 2: usarItem();                 break;
+            case 3: usarHabilidadeEspecial();   break;
+            case 4: tentarFuga();               break;
         }
     }
 
-    private static int lerInt(Scanner sc, int min, int max) {
-        int opt = -1;
-        while (true) {
-            try {
-                opt = sc.nextInt();
-                if (opt < min || opt > max) {
-                    System.out.println("Escolha entre " + min + " e " + max + ":");
-                    continue;
-                }
-                break;
-            } catch (InputMismatchException e) {
-                System.out.println("Entrada inválida, digite um número:");
-                sc.next();
-            }
+    private void realizarAtaque() {
+        int rolagemJogador = dado.nextInt(6) + 1;
+        int rolagemInimigo = dado.nextInt(6) + 1;
+
+        int danoAoInimigo  = Math.max(0, jogador.getAtaque() + rolagemJogador - inimigo.getDefesa());
+        int danoAoJogador  = Math.max(0, inimigo.getAtaque() + rolagemInimigo - jogador.getDefesa());
+
+        inimigo.receberDano(danoAoInimigo);
+        jogador.receberDano(danoAoJogador);
+
+        System.out.println("\nVocê causou " + danoAoInimigo + " de dano!");
+        System.out.println("O inimigo causou " + danoAoJogador + " de dano!");
+    }
+
+    private void usarItem() {
+        jogador.getInventario().usarItemPorNumero(sc, jogador);
+    }
+
+    private void usarHabilidadeEspecial() {
+        jogador.habilidadeEspecial(dado, inimigo);
+    }
+
+    private void tentarFuga() {
+        if (inimigo.getNome().equalsIgnoreCase("Valentine Morgenstern")) {
+            System.out.println("\n" + inimigo.getNome() + " é implacável! Fugir não é uma opção!");
+            return;
         }
-        return opt;
+
+        if (dado.nextInt(100) < CHANCE_FUGA_PERCENTUAL) {
+            System.out.println("\nVocê aproveita uma distração e escapa de " + inimigo.getNome() + "!");
+            // Encerra o loop: forçamos inimigo a "morrer" para sair do while
+            // sem alterar o estado real. Usamos flag de retorno no chamador.
+            return;
+        }
+
+        System.out.println("\n" + inimigo.getNome() + " bloqueia sua fuga e te ataca!");
+        int dano = Math.max(0, inimigo.getAtaque() + dado.nextInt(6) + 1 - jogador.getDefesa());
+        jogador.receberDano(dano);
+        System.out.println("Ele te acerta causando " + dano + " de dano extra!");
+    }
+
+    private void encerrarBatalha() {
+        if (jogador.estaVivo()) {
+            processarVitoria();
+        } else {
+            System.out.println("\nVocê foi derrotado por " + inimigo.getNome() + "...");
+        }
+    }
+
+    private void processarVitoria() {
+        System.out.println("\nVocê derrotou " + inimigo.getNome() + "!");
+
+        if (inimigo.getNome().equalsIgnoreCase("Valentine Morgenstern")) {
+            System.out.println("Obrigado por salvar o mundo das sombras!\n");
+            System.exit(0);
+        }
+
+        coletarItensDoInimigo();
+        subirDeNivel();
+    }
+
+    private void coletarItensDoInimigo() {
+        jogador.absorverInventario(inimigo);
+        if (!inimigo.getInventario().estaVazio()) {
+            System.out.println("Você coletou itens de " + inimigo.getNome() + ":");
+            inimigo.getInventario().listarItens();
+        } else {
+            System.out.println("O inimigo não carregava nenhum item.");
+        }
+    }
+
+    private void subirDeNivel() {
+        jogador.setNivel(jogador.getNivel() + 1);
+        jogador.setAtaque(jogador.getAtaque() + 2);
+        jogador.setDefesa(jogador.getDefesa() + 1);
+        jogador.setPontosVida(jogador.getPontosVida() + 10);
+        System.out.println("Você sobe para o nível " + jogador.getNivel() + " com atributos melhorados!");
     }
 }
