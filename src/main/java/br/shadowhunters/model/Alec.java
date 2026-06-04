@@ -1,86 +1,39 @@
-package Refatoracao_RPG.src.main.java.br.shadowhunters.model;
+package br.shadowhunters.model;
 
-import java.util.*;
+import java.util.Random;
 
 public class Alec extends Personagem implements Comparable<Alec> {
+
+    private static final int CHANCE_ACERTO_PERCENTUAL = 70;
+
     public Alec() {
-        this.nome = "Refatoracao_RPG.src.main.java.br.shadowhunters.model.Alec Lightwood";
-        this.pontosVida = 120;
-        this.ataque = 19;
-        this.defesa = 13;
-        this.nivel = 1;
+        super("Alec Lightwood", 120, 19, 13, 1);
     }
 
-    public Alec(Alec modelo) throws Exception {
-        if (modelo == null)
-            throw new Exception("Modelo ausente");
-
-        this.nome = modelo.nome;
-        this.pontosVida = modelo.pontosVida;
-        this.ataque = modelo.ataque;
-        this.defesa = modelo.defesa;
-        this.nivel = modelo.nivel;
-        this.inventario = (Inventario)modelo.inventario.clone();
+    public Alec(Alec modelo) {
+        super(modelo);
     }
 
     @Override
     public Object clone() {
-        Alec retorno = null;
-        try {
-            retorno = new Alec(this);
-        } catch (Exception erro) {}
-        return retorno;
+        return new Alec(this);
     }
 
     @Override
-    public String toString() {
-        return this.nome + " [HP=" + this.pontosVida + ", Ataque=" + this.ataque + ", Defesa=" + this.defesa + ", Nível=" + this.nivel + "]";
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null) return false;
-        if (obj.getClass() != this.getClass()) return false;
-        Alec a = (Alec)obj;
-        if (!this.nome.equalsIgnoreCase(a.nome)) return false;
-        if (this.pontosVida != a.pontosVida) return false;
-        if (this.ataque != a.ataque) return false;
-        if (this.defesa != a.defesa) return false;
-        if (this.nivel != a.nivel) return false;
-        if (!this.inventario.equals(a.inventario)) return false;
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int retorno = 1;
-        retorno = retorno * 3 + this.nome.toLowerCase().hashCode();
-        retorno = retorno * 5 + ((Integer)this.pontosVida).hashCode();
-        retorno = retorno * 7 + ((Integer)this.ataque).hashCode();
-        retorno = retorno * 11 + ((Integer)this.defesa).hashCode();
-        retorno = retorno * 13 + ((Integer)this.nivel).hashCode();
-        retorno = retorno * 17 + this.inventario.hashCode();
-        if (retorno < 0) retorno = -retorno;
-        return retorno;
-    }
-
-    @Override
-    public int compareTo(Alec a) {
-        if (this == a) return 0;
-        return this.nome.compareToIgnoreCase(a.nome);
+    public int compareTo(Alec outro) {
+        return nome.compareToIgnoreCase(outro.nome);
     }
 
     @Override
     public void habilidadeEspecial(Random dado, Inimigo inimigo) {
-        int chance = dado.nextInt(100);
-        if (chance < 70) {
-            int dano = (this.ataque * 2) - inimigo.defesa; 
-            if (dano > 0)
-                inimigo.receberDano(dano);
-            System.out.println("\n" + this.nome + " atira com precisão em seu inimigo! Causou " + Math.max(dano, 0) + " de dano!");
+        System.out.println("\n" + nome + " mira cuidadosamente...");
+
+        if (dado.nextInt(100) < CHANCE_ACERTO_PERCENTUAL) {
+            int dano = Math.max(0, ataque * 2 - inimigo.getDefesa());
+            inimigo.receberDano(dano);
+            System.out.println(nome + " acerta! Tiro preciso causou " + dano + " de dano!");
         } else {
-            System.out.println("\n" + this.nome + " tentou um tiro preciso, mas errou o alvo.");
+            System.out.println(nome + " errou o alvo desta vez.");
         }
     }
 }
