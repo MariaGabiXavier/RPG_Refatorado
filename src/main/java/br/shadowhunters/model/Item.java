@@ -10,7 +10,6 @@ public class Item implements Comparable<Item>, Cloneable {
     private final ItemEffect efeito;
     private int quantidade;
 
-
     public Item(String nome, String descricao, String chaveEfeito, int quantidade) {
         this.nome = nome;
         this.descricao = descricao;
@@ -34,8 +33,7 @@ public class Item implements Comparable<Item>, Cloneable {
     // Comportamento
     public void usar(br.shadowhunters.model.Personagem alvo) {
         if (quantidade <= 0) {
-            System.out.println("Não há " + nome + " disponível!");
-            return;
+            throw new IllegalStateException("Não há " + nome + " disponível!");
         }
         quantidade--;
         efeito.aplicar(alvo, nome);

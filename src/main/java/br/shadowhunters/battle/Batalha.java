@@ -87,7 +87,7 @@ public class Batalha {
     }
 
     private void tentarFuga() {
-        if (inimigo.getNome().equalsIgnoreCase("Valentine Morgenstern")) {
+        if (inimigo.getNome().equalsIgnoreCase(Inimigo.NOME_CHEFE_FINAL)) {
             System.out.println("\n" + inimigo.getNome() + " é implacável! Fugir não é uma opção!");
             return;
         }
@@ -116,7 +116,7 @@ public class Batalha {
     private void processarVitoria() {
         System.out.println("\nVocê derrotou " + inimigo.getNome() + "!");
 
-        if (inimigo.getNome().equalsIgnoreCase("Valentine Morgenstern")) {
+        if (inimigo.getNome().equalsIgnoreCase(Inimigo.NOME_CHEFE_FINAL)) {
             System.out.println("Obrigado por salvar o mundo das sombras!\n");
             System.exit(0);
         }

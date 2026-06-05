@@ -8,16 +8,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Gerencia a coleção de {@link Item} de um personagem.
+ *
+ * <p>Itens iguais (mesmo nome e descrição) são empilhados automaticamente
+ * em vez de duplicados.</p>
+ */
 public class Inventario implements Cloneable, Comparable<Inventario> {
 
-    private final List<br.shadowhunters.model.Item> itens = new ArrayList<>();
+    private final List<Item> itens = new ArrayList<>();
 
     public Inventario() {}
 
+    /** Construtor de cópia usado pelo padrão Prototype. */
     public Inventario(Inventario modelo) {
         if (modelo == null) throw new IllegalArgumentException("Modelo de inventário ausente");
-        for (br.shadowhunters.model.Item item : modelo.itens) {
-            itens.add((br.shadowhunters.model.Item) item.clone());
+        for (Item item : modelo.itens) {
+            itens.add((Item) item.clone());
         }
     }
 
@@ -26,18 +33,18 @@ public class Inventario implements Cloneable, Comparable<Inventario> {
         return new Inventario(this);
     }
 
-    // Operações de itens
-    public void adicionarItem(br.shadowhunters.model.Item item) {
-        for (br.shadowhunters.model.Item existente : itens) {
+    
+    public void adicionarItem(Item item) {
+        for (Item existente : itens) {
             if (existente.equals(item)) {
                 existente.adicionar(item.getQuantidade());
                 return;
             }
         }
-        itens.add((br.shadowhunters.model.Item) item.clone());
+        itens.add((Item) item.clone());
     }
 
-    public void usarItemPorNumero(Scanner sc, br.shadowhunters.model.Personagem alvo) {
+    public void usarItemPorNumero(Scanner sc, Personagem alvo) {
         if (itens.isEmpty()) {
             System.out.println("Você não tem itens no inventário.");
             return;
@@ -52,20 +59,28 @@ public class Inventario implements Cloneable, Comparable<Inventario> {
             return;
         }
 
-        br.shadowhunters.model.Item escolhido = itens.get(escolha - 1);
-        escolhido.usar(alvo);
+        Item escolhido = itens.get(escolha - 1);
+        try {
+            escolhido.usar(alvo);
+        } catch (IllegalStateException e) {
+            System.out.println(e.getMessage());
+        }
 
         if (escolhido.getQuantidade() <= 0) {
             itens.remove(escolhido);
         }
     }
 
-    public void removerItem(String nomeItem, br.shadowhunters.model.Personagem alvo) {
-        Iterator<br.shadowhunters.model.Item> it = itens.iterator();
+    public void removerItem(String nomeItem, Personagem alvo) {
+        Iterator<Item> it = itens.iterator();
         while (it.hasNext()) {
-            br.shadowhunters.model.Item item = it.next();
+            Item item = it.next();
             if (item.getNome().equalsIgnoreCase(nomeItem)) {
-                item.usar(alvo);
+                try {
+                    item.usar(alvo);
+                } catch (IllegalStateException e) {
+                    System.out.println(e.getMessage());
+                }
                 if (item.getQuantidade() <= 0) it.remove();
                 return;
             }
@@ -77,7 +92,7 @@ public class Inventario implements Cloneable, Comparable<Inventario> {
         return itens.isEmpty();
     }
 
-    public List<br.shadowhunters.model.Item> getItens() {
+    public List<Item> getItens() {
         return new ArrayList<>(itens);
     }
 
@@ -89,7 +104,7 @@ public class Inventario implements Cloneable, Comparable<Inventario> {
     @Override
     public String toString() {
         if (itens.isEmpty()) return "Inventário vazio.\n";
-        List<br.shadowhunters.model.Item> ordenados = new ArrayList<>(itens);
+        List<Item> ordenados = new ArrayList<>(itens);
         Collections.sort(ordenados);
         StringBuilder sb = new StringBuilder("\n=== Inventário ===\n");
         for (int i = 0; i < ordenados.size(); i++) {
@@ -113,7 +128,7 @@ public class Inventario implements Cloneable, Comparable<Inventario> {
     @Override
     public int hashCode() {
         int hash = 1;
-        for (br.shadowhunters.model.Item item : itens) {
+        for (Item item : itens) {
             hash = hash * 31 + item.hashCode();
         }
         return Math.abs(hash);

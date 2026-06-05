@@ -22,16 +22,15 @@ Este repositório documenta uma refatoração arquitetural com foco em:
 ### Windows PowerShell
 
 ```powershell
-Get-ChildItem -Recurse -Filter *.java src | ForEach-Object { $_.FullName } | Set-Content sources.txt
-javac -encoding UTF-8 -d out @sources.txt
+New-Item -ItemType Directory -Force -Path out | Out-Null
+Get-ChildItem -Recurse -Filter *.java src | ForEach-Object { $_.FullName } | ForEach-Object { javac -encoding UTF-8 -d out $_ }
 java -cp out br.shadowhunters.ShadowhuntersRPG
 ```
 
 ### Linux, macOS ou Git Bash
 
 ```bash
-find src -name "*.java" > sources.txt
-javac -encoding UTF-8 -d out @sources.txt
+find src -name "*.java" -print0 | xargs -0 javac -encoding UTF-8 -d out
 java -cp out br.shadowhunters.ShadowhuntersRPG
 ```
 
@@ -50,6 +49,8 @@ shadowhunters-rpg/
 │   ├── arquitetura-c4-componentes.md
 │   ├── classes-gof.md
 │   └── sequencia-batalha.md
+├── docs/
+│   └── Shadowhunters_RPG_Trabalho_Final.pdf
 └── src/main/java/br/shadowhunters/
     ├── ShadowhuntersRPG.java
     ├── battle/
@@ -83,8 +84,8 @@ mas é organizada por pacotes com responsabilidades separadas.
 |---|---|---|
 | Strategy | Comportamental | `ItemEffect` e classes de efeito como `CuraEffect`, `ForcaEffect` e `DefesaEffect`. |
 | Factory Method | Criacional | `PersonagemFactory` e `EffectFactory` centralizam a criação de objetos. |
-| Prototype | Criacional | `clone()` e construtores de cópia em `Personagem`, `Inventario` e `Item`. |
-| Template Method / Polimorfismo | Comportamental | `Personagem.habilidadeEspecial(...)` define o contrato implementado por cada personagem. |
+| Prototype | Criacional | `clone()` abstrato e construtores de cópia em `Personagem`, `Inventario` e `Item`. |
+| Template Method | Comportamental | `Personagem.habilidadeEspecial(...)` abstrato, implementado por cada subclasse. |
 
 ## Documentação Arquitetural
 
@@ -103,8 +104,8 @@ mas é organizada por pacotes com responsabilidades separadas.
 - [Sequência - Fluxo de Batalha](diagrams/sequencia-batalha.md)
 
 Os diagramas estão em Mermaid dentro de arquivos Markdown. Eles podem ser
-renderizados diretamente em ferramentas como GitHub, VS Code com extensão Mermaid
-ou editores Markdown compatíveis.
+renderizados diretamente no GitHub, no VS Code com a extensão
+"Markdown Preview Mermaid Support" ou no site [mermaid.live](https://mermaid.live).
 
 ## Fluxo do Jogo
 
@@ -120,13 +121,12 @@ ou editores Markdown compatíveis.
 
 - `InputUtil` elimina duplicação de leitura numérica e padroniza validação.
 - `Console` centraliza códigos ANSI e evita literais de formatação espalhados.
-- `Item` delega efeitos para `ItemEffect`, reduzindo acoplamento.
-- `Inventario` empilha itens equivalentes e usa cópia defensiva ao expor a lista.
+- `Item` delega efeitos para `ItemEffect` e sinaliza falta de estoque via `IllegalStateException`.
+- `Inventario` trata erros de uso, empilha itens equivalentes e usa cópia defensiva ao expor a lista.
 - `Personagem` centraliza comportamento comum, `equals`, `hashCode` e `toString`.
+- `Inimigo.NOME_CHEFE_FINAL` elimina a magic string `"Valentine Morgenstern"` duplicada no código.
 
 ## Observações
 
-- O projeto não usa Maven ou Gradle; a compilação é feita diretamente com
-  `javac`.
-- O arquivo `sources.txt` é um arquivo auxiliar gerado para a compilação.
-- A pasta `out/`, quando criada, contém apenas classes compiladas.
+- O projeto não usa Maven ou Gradle; a compilação é feita diretamente com `javac`.
+- A pasta `out/`, quando criada, contém apenas classes compiladas e pode ser ignorada pelo controle de versão.

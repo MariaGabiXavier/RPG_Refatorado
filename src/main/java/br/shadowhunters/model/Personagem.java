@@ -9,10 +9,10 @@ public abstract class Personagem implements Cloneable {
     protected int ataque;
     protected int defesa;
     protected int nivel;
-    protected br.shadowhunters.model.Inventario inventario;
+    protected Inventario inventario;
 
     protected Personagem() {
-        this.inventario = new br.shadowhunters.model.Inventario();
+        this.inventario = new Inventario();
     }
 
     protected Personagem(String nome, int pontosVida, int ataque, int defesa, int nivel) {
@@ -21,9 +21,10 @@ public abstract class Personagem implements Cloneable {
         this.ataque = ataque;
         this.defesa = defesa;
         this.nivel = nivel;
-        this.inventario = new br.shadowhunters.model.Inventario();
+        this.inventario = new Inventario();
     }
 
+    /** Construtor de cópia  */
     protected Personagem(Personagem modelo) {
         if (modelo == null) throw new IllegalArgumentException("Modelo de personagem ausente");
         this.nome = modelo.nome;
@@ -31,37 +32,33 @@ public abstract class Personagem implements Cloneable {
         this.ataque = modelo.ataque;
         this.defesa = modelo.defesa;
         this.nivel = modelo.nivel;
-        this.inventario = (br.shadowhunters.model.Inventario) modelo.inventario.clone();
+        this.inventario = (Inventario) modelo.inventario.clone();
     }
 
     @Override
-    public Object clone() {
-        try {
-            return this.getClass().getConstructor(this.getClass()).newInstance(this);
-        } catch (Exception e) {
-            throw new RuntimeException("Falha ao clonar personagem: " + nome, e);
-        }
-    }
+    public abstract Object clone();
 
-    //subclasses implementam a lógica de habilidade
     public abstract void habilidadeEspecial(Random dado, Inimigo inimigo);
 
+
     // Comportamento comum
+
     public boolean estaVivo() {
         return pontosVida > 0;
     }
 
+    /** Recebe dano, garantindo que HP não fique negativo. */
     public void receberDano(int dano) {
         pontosVida = Math.max(0, pontosVida - dano);
     }
 
+    /** Transfere todos os itens do inventário do inimigo para este personagem. */
     public void absorverInventario(Inimigo inimigo) {
-        for (br.shadowhunters.model.Item item : inimigo.getInventario().getItens()) {
+        for (Item item : inimigo.getInventario().getItens()) {
             inventario.adicionarItem(item);
         }
     }
 
-    // Object overrides
     @Override
     public String toString() {
         return nome + " [HP=" + pontosVida
@@ -96,17 +93,19 @@ public abstract class Personagem implements Cloneable {
         return Math.abs(hash);
     }
 
+
+
     public String getNome()          { return nome; }
     public int getPontosVida()       { return pontosVida; }
     public int getAtaque()           { return ataque; }
     public int getDefesa()           { return defesa; }
     public int getNivel()            { return nivel; }
-    public br.shadowhunters.model.Inventario getInventario(){ return inventario; }
+    public Inventario getInventario(){ return inventario; }
 
     public void setNome(String nome)              { this.nome = nome; }
     public void setPontosVida(int pontosVida)     { this.pontosVida = Math.max(0, pontosVida); }
     public void setAtaque(int ataque)             { this.ataque = ataque; }
     public void setDefesa(int defesa)             { this.defesa = defesa; }
     public void setNivel(int nivel)               { this.nivel = nivel; }
-    public void setInventario(br.shadowhunters.model.Inventario inv)     { this.inventario = inv; }
+    public void setInventario(Inventario inv)     { this.inventario = inv; }
 }

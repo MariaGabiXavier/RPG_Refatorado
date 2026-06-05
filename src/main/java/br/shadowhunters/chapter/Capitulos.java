@@ -82,7 +82,7 @@ public class Capitulos {
         System.out.println("Valentine prepara o ritual. Seja rápido!");
         aguardarPreparacao();
         System.out.println("\nValentine surge: " + Console.emNegrito("O duelo final começa!"));
-        batalhar(new Inimigo("Valentine Morgenstern", 150, 26, 15, 5));
+        batalhar(new Inimigo(Inimigo.NOME_CHEFE_FINAL, 150, 26, 15, 5));
     }
 
     private void rotaCatacumbas() {
@@ -179,9 +179,9 @@ public class Capitulos {
             int escolha = InputUtil.lerIntervalo(sc, 1, 3);
 
             switch (escolha) {
-                case 1: pronto = true;                                        break;
+                case 1: pronto = true;                                         break;
                 case 2: jogador.getInventario().usarItemPorNumero(sc, jogador); break;
-                case 3: jogador.getInventario().listarItens();                 break;
+                case 3: jogador.getInventario().listarItens();                  break;
             }
         }
     }

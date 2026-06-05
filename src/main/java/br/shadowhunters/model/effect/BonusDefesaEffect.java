@@ -2,7 +2,6 @@ package br.shadowhunters.model.effect;
 
 import br.shadowhunters.model.Personagem;
 
-/** Aumenta a defesa do alvo em  ponto. */
 public class BonusDefesaEffect implements ItemEffect {
 
     private static final int BONUS_DEFESA = 1;
